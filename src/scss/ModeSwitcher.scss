@@ -25,5 +25,9 @@
       translate: 200% 0;
       transition: 0.35s ease;
     }
+
+    &.dark-mode::before {
+      translate: 0 0;
+    }
   }
 }
