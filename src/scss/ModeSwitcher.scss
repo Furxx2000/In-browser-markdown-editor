@@ -1,0 +1,29 @@
+.mode-switcher {
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+
+  & > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .toggler {
+    min-width: 48px;
+    min-height: 24px;
+    padding: 6px;
+    border-radius: 14.5px;
+    cursor: pointer;
+
+    &::before {
+      display: block;
+      content: '';
+      background-color: white;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      translate: 200% 0;
+      transition: 0.35s ease;
+    }
+  }
+}
