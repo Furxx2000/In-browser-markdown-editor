@@ -8,7 +8,6 @@ function ModeSwitcher() {
 
   function handleToggleMode() {
     setMode((current) => !current);
-    console.log(isDarkMode);
   }
 
   return (
