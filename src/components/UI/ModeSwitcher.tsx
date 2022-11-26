@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import SvgIcon from './SvgIcon';
-import '../scss/ModeSwitcher.scss';
+import '../../scss/ModeSwitcher.scss';
 
 function ModeSwitcher() {
   const [isDarkMode, setMode] = useState(false);
   const notActive = '#5a6069';
 
   function handleToggleMode() {
-    setMode((current) => !current);
+    setMode(!isDarkMode);
   }
 
   return (

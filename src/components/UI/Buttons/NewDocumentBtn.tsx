@@ -1,4 +1,4 @@
-import '../scss/Button.scss';
+import '../../../scss/Button.scss';
 
 function NewDocumentBtn() {
   return (

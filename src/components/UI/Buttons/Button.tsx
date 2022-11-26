@@ -1,5 +1,5 @@
-import SvgIcon from './SvgIcon';
-import '../scss/Button.scss';
+import SvgIcon from '../SvgIcon';
+import '../../../scss/Button.scss';
 
 interface ButtonAttr {
   color?: string;
