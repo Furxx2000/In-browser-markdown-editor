@@ -1,15 +1,33 @@
-button {
+.new-document-btn,
+.save-change {
   display: flex;
   align-items: center;
   line-height: 18px;
   padding: 10px 1rem;
   max-height: 40px;
-}
 
-button > svg {
-  margin-right: 7.8px;
+  & > svg {
+    margin-right: 7.8px;
+  }
 }
 
 .new-document-btn {
   padding-inline: 43px;
+}
+
+.save-change {
+  @media only screen and (max-width: 480px) {
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+
+    & > p {
+      display: none;
+    }
+
+    & > svg {
+      margin-right: 0;
+    }
+  }
 }
