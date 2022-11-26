@@ -50,6 +50,7 @@ p,
 figure,
 picture {
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -58,7 +59,6 @@ body {
   font-weight: 400;
   min-height: 100vh;
   line-height: 1.5;
-  margin: 1rem;
 }
 
 img {
@@ -183,6 +183,9 @@ h6 {
 .bg-dark-3 {
   background-color: var(--clr-dark-3);
 }
+.bg-dark-4 {
+  background-color: var(--clr-dark-4);
+}
 .bg-gray-1 {
   background-color: var(--clr-gray-1);
 }
@@ -190,7 +193,36 @@ h6 {
 .text-white {
   color: var(--clr-white-1);
 }
+.text-gray-3 {
+  color: var(--clr-gray-3);
+}
+
+.fs-200 {
+  font-size: var(--fs-200);
+}
+
+.fw-light {
+  font-weight: var(--fw-light);
+}
 
 .rounded {
   border-radius: 4px;
+}
+
+@mixin desktop {
+  @media (min-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1280px) and (min-width: 820px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 480px) {
+    @content;
+  }
 }
