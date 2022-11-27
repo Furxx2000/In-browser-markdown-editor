@@ -10,11 +10,11 @@ interface File {
 }
 
 function MarkdownEditor() {
-  const [files, setNewFile] = useState<File[]>([]);
+  const [files, setNewFiles] = useState<File[]>([]);
   const [menuStatus, setMenuStatus] = useState(false);
   const [curFile, setCurFile] = useState<File>({
-    name: 'Hello world',
-    createdAt: '04 11 2022',
+    name: '',
+    createdAt: '',
     content: '',
     isSelected: true,
   });
@@ -24,10 +24,10 @@ function MarkdownEditor() {
       const res = await fetch('../../../data/data.json');
       const data = await res.json();
 
-      setNewFile(data);
+      setNewFiles(data);
+      setCurFile({ ...data[0], isSelected: true });
     };
     fetchData();
-    console.log(curFile);
   }, []);
 
   function changeMenuStatus() {
