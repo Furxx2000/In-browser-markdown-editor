@@ -1,0 +1,21 @@
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  width: 250px;
+  height: 100vh;
+  padding: 1.8rem 1.5rem;
+  --flow: 27px;
+  translate: -100% 0;
+  transition: 0.4s ease;
+
+  &.is-active {
+    translate: 0 0;
+  }
+}
+
+.side-bar .icon-logo {
+  width: 131px;
+  height: 18px;
+}
