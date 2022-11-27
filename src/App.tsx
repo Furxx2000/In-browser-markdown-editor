@@ -1,13 +1,8 @@
-import Header from './components/Layout/Header';
-import Menu from './components/UI/Menu';
 import './assets/App.scss';
+import MarkdownEditor from './components/Layout/MarkdownEditor';
 
 function App() {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <MarkdownEditor />;
 }
 
 export default App;
