@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Slab:wght@300;400;700&family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Slab:wght@300;400;700&family=Roboto:wght@300;400;500&display=swap');
 
 :root {
   // color
@@ -23,11 +23,16 @@
   // font weight
   --fw-light: 300;
   --fw-regular: 400;
+  --fw-medium: 500;
   --fw-bold: 700;
 
+  // font family
   --ff-roboto: 'Roboto', sans-serif;
   --ff-roboto-slab: 'Roboto Slab', serif;
   --ff-roboto-mono: 'Roboto Mono', serif;
+
+  // letter spacing
+  --letter-spacing-1: 2px;
 }
 
 *,
@@ -48,7 +53,8 @@ h4,
 h5,
 p,
 figure,
-picture {
+picture,
+ul {
   margin: 0;
   padding: 0;
 }
@@ -69,6 +75,11 @@ svg {
   width: 17px;
   height: 17px;
   vertical-align: middle;
+}
+
+li,
+a {
+  list-style-type: none;
 }
 
 input,
@@ -156,7 +167,7 @@ h6 {
 }
 
 .flow > *:where(:not(:first-child)) {
-  margin-top: var(--flow-space, 1rem);
+  margin-top: var(--flow, 1rem);
 }
 
 .sr-only {
@@ -180,6 +191,9 @@ h6 {
 .bg-orange-1:hover {
   background-color: var(--clr-orange-2);
 }
+.bg-dark-2 {
+  background-color: var(--clr-dark-2);
+}
 .bg-dark-3 {
   background-color: var(--clr-dark-3);
 }
@@ -196,6 +210,9 @@ h6 {
 .text-gray-3 {
   color: var(--clr-gray-3);
 }
+.text-gray-2 {
+  color: var(--clr-gray-2);
+}
 
 .fs-200 {
   font-size: var(--fs-200);
@@ -204,25 +221,18 @@ h6 {
 .fw-light {
   font-weight: var(--fw-light);
 }
+.fw-medium {
+  font-weight: var(--fw-medium);
+}
+
+.letter-spacing-1 {
+  letter-spacing: var(--letter-spacing-1);
+}
 
 .rounded {
   border-radius: 4px;
 }
 
-@mixin desktop {
-  @media (min-width: 1280px) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (max-width: 1280px) and (min-width: 820px) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media (max-width: 480px) {
-    @content;
-  }
+.root-container.is-active {
+  overflow: hidden;
 }
