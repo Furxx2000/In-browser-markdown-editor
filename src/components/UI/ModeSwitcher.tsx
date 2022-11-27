@@ -11,7 +11,7 @@ function ModeSwitcher() {
   }
 
   return (
-    <div className='mode-switcher bg-dark-3 flex'>
+    <div className='mode-switcher flex'>
       <SvgIcon name='icon-dark-mode' color={isDarkMode ? 'white' : notActive} />
       <div
         className={`toggler bg-gray-1 ${isDarkMode ? 'dark-mode' : ''}`}
