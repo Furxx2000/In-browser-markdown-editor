@@ -1,20 +1,18 @@
-import { useState } from 'react';
 import '../../scss/Menu.scss';
 import SvgIcon from './SvgIcon';
 
-function Menu() {
-  const [isMenuOpen, setMenu] = useState(false);
+interface ChangeMenuStatus {
+  isMenuOpen: boolean;
+  onChangeMenuStatus: () => void;
+}
 
-  function toggleMenu() {
-    setMenu(!isMenuOpen);
-  }
-
+function Menu({ isMenuOpen, onChangeMenuStatus }: ChangeMenuStatus) {
   return (
     <button
       type='button'
       aria-label='Menu'
       className='menu bg-dark-4'
-      onClick={toggleMenu}
+      onClick={onChangeMenuStatus}
     >
       {isMenuOpen ? (
         <SvgIcon className='icon-close' name='icon-close' color='white' />
