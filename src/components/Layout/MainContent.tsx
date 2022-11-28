@@ -25,7 +25,7 @@ function MainContent(props: Props) {
         isMenuOpen={props.isMenuOpen}
         onChangeMenuStatus={props.onChangeMenuStatus}
       />
-      <Markdown />
+      <Markdown content={props.curFile.content} />
     </main>
   );
 }
