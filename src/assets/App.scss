@@ -63,6 +63,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   font-weight: 400;
+  -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   line-height: 1.5;
 }
@@ -213,6 +214,9 @@ h6 {
 .text-gray-2 {
   color: var(--clr-gray-2);
 }
+.text-dark-4 {
+  color: var(--clr-dark-4);
+}
 
 .fs-200 {
   font-size: var(--fs-200);
@@ -223,6 +227,10 @@ h6 {
 }
 .fw-medium {
   font-weight: var(--fw-medium);
+}
+
+.ff-roboto-mono {
+  font-family: var(--ff-roboto-mono);
 }
 
 .letter-spacing-1 {
