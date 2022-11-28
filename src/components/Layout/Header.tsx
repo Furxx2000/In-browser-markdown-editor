@@ -22,9 +22,7 @@ function Header({
   const deleteColor = '#7c8187';
   return (
     <>
-      <header
-        className={`header bg-dark-3 flex ${isMenuOpen ? 'is-active' : ''}`}
-      >
+      <header className={`header bg-dark-3 flex`}>
         <Menu isMenuOpen={isMenuOpen} onChangeMenuStatus={onChangeMenuStatus} />
         <FileRename fileName={name} date={createdAt} isSelected={isSelected} />
         <SvgIcon
