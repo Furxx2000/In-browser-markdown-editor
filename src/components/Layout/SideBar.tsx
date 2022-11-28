@@ -18,10 +18,10 @@ interface Props {
 
 function SideBar(props: Props) {
   return (
-    <div
+    <aside
       className={`side-bar bg-dark-2 ${props.isMenuOpen ? 'is-active' : ''}`}
     >
-      <div className='flow'>
+      <nav className='flow'>
         <SvgIcon className='icon-logo' name='logo' color='white' />
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
           MY DOCUMENTS
@@ -38,9 +38,9 @@ function SideBar(props: Props) {
             </li>
           ))}
         </ul>
-      </div>
+      </nav>
       <ModeSwitcher />
-    </div>
+    </aside>
   );
 }
 
