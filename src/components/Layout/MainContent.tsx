@@ -1,4 +1,6 @@
+import Markdown from '../UI/Markdown';
 import Header from './Header';
+import '../../scss/MainContent.scss';
 
 interface File {
   name: string;
@@ -15,7 +17,7 @@ interface Props {
 
 function MainContent(props: Props) {
   return (
-    <>
+    <main className={`main-content ${props.isMenuOpen ? 'is-active' : ''}`}>
       <Header
         name={props.curFile.name}
         createdAt={props.curFile.createdAt}
@@ -23,7 +25,8 @@ function MainContent(props: Props) {
         isMenuOpen={props.isMenuOpen}
         onChangeMenuStatus={props.onChangeMenuStatus}
       />
-    </>
+      <Markdown />
+    </main>
   );
 }
 
