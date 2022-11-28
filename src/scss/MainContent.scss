@@ -1,0 +1,7 @@
+.main-content {
+  transition: 0.4s ease;
+}
+
+.main-content.is-active {
+  translate: 250px 0;
+}
