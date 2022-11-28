@@ -25,7 +25,7 @@ function MarkdownEditor() {
       const data = await res.json();
 
       setNewFiles(data);
-      setCurFile({ ...data[0], isSelected: true });
+      setCurFile({ ...data[1], isSelected: true });
     };
     fetchData();
   }, []);
