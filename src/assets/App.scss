@@ -118,6 +118,7 @@ h4 {
   font-family: var(--ff-roboto-slab);
   font-weight: var(--fw-bold);
   font-size: 20px;
+  color: var(--clr-dark-4);
 }
 
 h5 {
@@ -192,6 +193,9 @@ h6 {
 .bg-orange-1:hover {
   background-color: var(--clr-orange-2);
 }
+.bg-dark-1 {
+  background-color: var(--clr-dark-1);
+}
 .bg-dark-2 {
   background-color: var(--clr-dark-2);
 }
@@ -231,6 +235,9 @@ h6 {
 
 .ff-roboto-mono {
   font-family: var(--ff-roboto-mono);
+}
+.ff-roboto-slab {
+  font-family: var(--ff-roboto-slab);
 }
 
 .letter-spacing-1 {
