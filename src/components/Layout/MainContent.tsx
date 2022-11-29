@@ -1,6 +1,8 @@
 import Markdown from '../UI/Markdown';
 import Header from './Header';
 import '../../scss/MainContent.scss';
+import Preview from '../UI/Preview';
+import { useState } from 'react';
 
 interface File {
   name: string;
@@ -15,17 +17,33 @@ interface Props {
   onChangeMenuStatus: () => void;
 }
 
-function MainContent(props: Props) {
+function MainContent({ curFile, isMenuOpen, onChangeMenuStatus }: Props) {
+  const [isMarkdown, setIsMarkdown] = useState(true);
+
+  function changeMarkdownStatus() {
+    setIsMarkdown(!isMarkdown);
+  }
+
   return (
-    <main className={`main-content ${props.isMenuOpen ? 'is-active' : ''}`}>
+    <main className={`main-content ${isMenuOpen ? 'is-active' : ''}`}>
       <Header
-        name={props.curFile.name}
-        createdAt={props.curFile.createdAt}
-        isSelected={props.curFile.isSelected}
-        isMenuOpen={props.isMenuOpen}
-        onChangeMenuStatus={props.onChangeMenuStatus}
+        name={curFile.name}
+        createdAt={curFile.createdAt}
+        isSelected={curFile.isSelected}
+        isMenuOpen={isMenuOpen}
+        onChangeMenuStatus={onChangeMenuStatus}
       />
-      <Markdown content={props.curFile.content} />
+      {isMarkdown ? (
+        <Markdown
+          content={curFile.content}
+          onChangeMarkdownStatus={changeMarkdownStatus}
+        />
+      ) : (
+        <Preview
+          content={curFile.content}
+          onChangeMarkdownStatus={changeMarkdownStatus}
+        />
+      )}
     </main>
   );
 }
