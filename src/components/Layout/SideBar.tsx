@@ -16,11 +16,9 @@ interface Props {
   isMenuOpen: boolean;
 }
 
-function SideBar(props: Props) {
+function SideBar({ files, isMenuOpen }: Props) {
   return (
-    <aside
-      className={`side-bar bg-dark-2 ${props.isMenuOpen ? 'is-active' : ''}`}
-    >
+    <aside className={`side-bar bg-dark-2 ${isMenuOpen ? 'is-active' : ''}`}>
       <nav className='flow'>
         <SvgIcon className='icon-logo' name='logo' color='white' />
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
@@ -28,7 +26,7 @@ function SideBar(props: Props) {
         </p>
         <NewDocumentBtn />
         <ul>
-          {props.files.map((file: File) => (
+          {files.map((file: File) => (
             <li key={file.name}>
               <FileRename
                 fileName={file.name}
