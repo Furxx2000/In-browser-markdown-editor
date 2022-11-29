@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import '../../scss/Markdown.scss';
-import SvgIcon from './SvgIcon';
+import GrayHeader from './GrayHeader';
 
-interface Content {
+interface Props {
   content: string;
+  onChangeMarkdownStatus: () => void;
 }
 
-function Markdown(props: Content) {
-  const grayColor = '#7C8187';
-  const [markdown, setMarkdown] = useState(props.content);
+function Markdown({ content, onChangeMarkdownStatus }: Props) {
+  const [markdown, setMarkdown] = useState(content);
 
   useEffect(() => {
-    setMarkdown(props.content);
-  }, [props.content]);
+    setMarkdown(content);
+  }, [content]);
 
   function handleMarkdownValue(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setMarkdown(e.target.value);
@@ -20,13 +20,14 @@ function Markdown(props: Content) {
 
   return (
     <section className='markdown'>
-      <div className='markdown-header fs-250 fw-medium letter-spacing-1 text-gray-2 bg-white-1 flex'>
-        MARKDOWN
-        <SvgIcon name='icon-show-preview' color={grayColor} />
-      </div>
+      <GrayHeader
+        text='MARKDOWN'
+        icon='icon-show-preview'
+        onChangeMarkdownStatus={onChangeMarkdownStatus}
+      />
       <textarea
         id='markdown'
-        className='ff-roboto-mono fs-250 text-dark-4'
+        className='markdown-content ff-roboto-mono fs-250 text-dark-4'
         name='markdown'
         value={markdown}
         onChange={handleMarkdownValue}
