@@ -1,0 +1,32 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+}
+
+.dialog {
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  min-width: 90%;
+  min-height: 218px;
+  padding: 1.5rem;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+
+  &-title {
+    line-height: 26px;
+  }
+
+  &-description {
+    line-height: 24px;
+  }
+
+  &-btn {
+    padding-block: 10px;
+  }
+}
