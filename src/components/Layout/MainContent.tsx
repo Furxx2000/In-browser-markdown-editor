@@ -15,9 +15,15 @@ interface Props {
   curFile: File;
   isMenuOpen: boolean;
   onChangeMenuStatus: () => void;
+  onChangeDialogStatus: () => void;
 }
 
-function MainContent({ curFile, isMenuOpen, onChangeMenuStatus }: Props) {
+function MainContent({
+  curFile,
+  isMenuOpen,
+  onChangeMenuStatus,
+  onChangeDialogStatus,
+}: Props) {
   const [isMarkdown, setIsMarkdown] = useState(true);
 
   function changeMarkdownStatus() {
@@ -32,6 +38,7 @@ function MainContent({ curFile, isMenuOpen, onChangeMenuStatus }: Props) {
         isSelected={curFile.isSelected}
         isMenuOpen={isMenuOpen}
         onChangeMenuStatus={onChangeMenuStatus}
+        onChangeDialogStatus={onChangeDialogStatus}
       />
       {isMarkdown ? (
         <Markdown

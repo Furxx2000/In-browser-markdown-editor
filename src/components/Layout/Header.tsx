@@ -10,6 +10,7 @@ interface File {
   isSelected: boolean;
   isMenuOpen: boolean;
   onChangeMenuStatus: () => void;
+  onChangeDialogStatus: () => void;
 }
 
 function Header({
@@ -18,6 +19,7 @@ function Header({
   isSelected,
   isMenuOpen,
   onChangeMenuStatus,
+  onChangeDialogStatus,
 }: File) {
   const deleteColor = '#7c8187';
   return (
@@ -29,6 +31,7 @@ function Header({
           className='icon-delete'
           name='icon-delete'
           color={deleteColor}
+          onClick={onChangeDialogStatus}
         />
         <SaveChangeBtn />
       </header>

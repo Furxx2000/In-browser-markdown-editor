@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import SideBar from './SideBar';
 import MainContent from './MainContent';
+import Dialog from '../UI/Dialog';
 
 interface File {
   name: string;
@@ -11,13 +12,14 @@ interface File {
 
 function MarkdownEditor() {
   const [files, setNewFiles] = useState<File[]>([]);
-  const [menuStatus, setMenuStatus] = useState(false);
   const [curFile, setCurFile] = useState<File>({
     name: '',
     createdAt: '',
     content: '',
     isSelected: true,
   });
+  const [menuStatus, setMenuStatus] = useState(false);
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +36,10 @@ function MarkdownEditor() {
     setMenuStatus(!menuStatus);
   }
 
+  function changeDialogStatus() {
+    setIsOpenDialog(!isOpenDialog);
+  }
+
   return (
     <div className={`root-container ${menuStatus ? 'is-active' : ''}`}>
       <SideBar isMenuOpen={menuStatus} files={files} />
@@ -41,7 +47,13 @@ function MarkdownEditor() {
         curFile={curFile}
         isMenuOpen={menuStatus}
         onChangeMenuStatus={changeMenuStatus}
+        onChangeDialogStatus={changeDialogStatus}
       />
+      {isOpenDialog ? (
+        <Dialog name={curFile.name} changeDialogStatus={changeDialogStatus} />
+      ) : (
+        ''
+      )}
     </div>
   );
 }
