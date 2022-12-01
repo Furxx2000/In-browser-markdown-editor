@@ -1,0 +1,11 @@
+.side-bar-list {
+  gap: 1rem;
+  align-items: center;
+  padding-block: 16px;
+  margin-right: auto;
+
+  & span {
+    display: block;
+    line-height: 15px;
+  }
+}
