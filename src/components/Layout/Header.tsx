@@ -6,18 +6,19 @@ import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
 
 interface File {
   name: string;
-  createdAt: string;
+  timeStamp: string;
   isSelected: boolean;
   isMenuOpen: boolean;
+  fileQuantity: number;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
 }
 
 function Header({
   name,
-  createdAt,
-  isSelected,
   isMenuOpen,
+  fileQuantity,
+  timeStamp,
   onChangeMenuStatus,
   onChangeDialogStatus,
 }: File) {
@@ -26,13 +27,16 @@ function Header({
     <>
       <header className={`header bg-dark-3 flex`}>
         <Menu isMenuOpen={isMenuOpen} onChangeMenuStatus={onChangeMenuStatus} />
-        <FileRename fileName={name} date={createdAt} isSelected={isSelected} />
-        <SvgIcon
-          className='icon-delete'
-          name='icon-delete'
-          color={deleteColor}
-          onClick={onChangeDialogStatus}
-        />
+        <FileRename fileName={name} timeStamp={timeStamp} />
+        {fileQuantity > 1 && (
+          <SvgIcon
+            className='icon-delete'
+            name='icon-delete'
+            color={deleteColor}
+            onClick={onChangeDialogStatus}
+          />
+        )}
+
         <SaveChangeBtn />
       </header>
     </>
