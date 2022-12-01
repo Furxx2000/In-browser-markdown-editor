@@ -1,12 +1,13 @@
 import NewDocumentBtn from '../UI/Buttons/NewDocumentBtn';
 import SvgIcon from '../UI/SvgIcon';
 import '../../scss/SideBar.scss';
-import FileRename from '../UI/FileRename';
 import ModeSwitcher from '../UI/ModeSwitcher';
+import SideBarList from '../UI/SideBarList';
 
 interface File {
   name: string;
   createdAt: string;
+  timeStamp: string;
   content: string;
   isSelected: boolean;
 }
@@ -14,9 +15,11 @@ interface File {
 interface Props {
   files: File[];
   isMenuOpen: boolean;
+  changeCurFile: (fileName: string) => void;
+  addNewDocument: () => void;
 }
 
-function SideBar({ files, isMenuOpen }: Props) {
+function SideBar({ files, isMenuOpen, changeCurFile, addNewDocument }: Props) {
   return (
     <aside className={`side-bar bg-dark-2 ${isMenuOpen ? 'is-active' : ''}`}>
       <nav className='flow'>
@@ -24,11 +27,14 @@ function SideBar({ files, isMenuOpen }: Props) {
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
           MY DOCUMENTS
         </p>
-        <NewDocumentBtn />
+        <NewDocumentBtn addNewDocument={addNewDocument} />
         <ul>
           {files.map((file: File) => (
-            <li key={file.name}>
-              <FileRename
+            <li
+              key={file.timeStamp}
+              onClick={() => changeCurFile(file.timeStamp)}
+            >
+              <SideBarList
                 fileName={file.name}
                 date={file.createdAt}
                 isSelected={file.isSelected}
