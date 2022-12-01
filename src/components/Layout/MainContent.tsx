@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 interface File {
   name: string;
-  createdAt: string;
+  timeStamp: string;
   content: string;
   isSelected: boolean;
 }
@@ -14,6 +14,7 @@ interface File {
 interface Props {
   curFile: File;
   isMenuOpen: boolean;
+  fileQuantity: number;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
 }
@@ -21,6 +22,7 @@ interface Props {
 function MainContent({
   curFile,
   isMenuOpen,
+  fileQuantity,
   onChangeMenuStatus,
   onChangeDialogStatus,
 }: Props) {
@@ -34,9 +36,10 @@ function MainContent({
     <main className={`main-content ${isMenuOpen ? 'is-active' : ''}`}>
       <Header
         name={curFile.name}
-        createdAt={curFile.createdAt}
+        timeStamp={curFile.timeStamp}
         isSelected={curFile.isSelected}
         isMenuOpen={isMenuOpen}
+        fileQuantity={fileQuantity}
         onChangeMenuStatus={onChangeMenuStatus}
         onChangeDialogStatus={onChangeDialogStatus}
       />
