@@ -2,13 +2,12 @@ import { useState } from 'react';
 import '../../scss/FileRename.scss';
 import SvgIcon from './SvgIcon';
 
-interface File {
+interface Props {
   fileName: string;
-  date: string;
-  isSelected: boolean;
+  timeStamp: string;
 }
 
-function FileRename({ fileName, date, isSelected }: File) {
+function FileRename({ fileName, timeStamp }: Props) {
   const [name, setFileName] = useState('welcome.md');
   const mql = window.matchMedia('(max-width: 480px)');
 
@@ -20,25 +19,24 @@ function FileRename({ fileName, date, isSelected }: File) {
     <div className='file-rename flex text-white'>
       <SvgIcon name='icon-document' color='white' />
       <div className='document-name'>
-        {mql.matches && isSelected ? (
+        {mql.matches ? (
           ''
         ) : (
           <label
             htmlFor='document-name'
             className='fs-200 fw-light text-gray-3'
           >
-            {isSelected ? 'Document Name' : date}
+            Document Name
           </label>
         )}
 
         <input
           id='document-name'
+          className='text-white'
           name='document-name'
           type='text'
           value={fileName}
           onChange={handleSetFileName}
-          className='text-white'
-          readOnly={!isSelected}
         />
       </div>
     </div>
