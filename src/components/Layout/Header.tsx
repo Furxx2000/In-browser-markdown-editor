@@ -3,31 +3,34 @@ import Menu from '../UI/Menu';
 import FileRename from '../UI/FileRename';
 import SvgIcon from '../UI/SvgIcon';
 import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
+import { RefObject } from 'react';
 
 interface File {
   name: string;
-  timeStamp: string;
   isSelected: boolean;
   isMenuOpen: boolean;
   fileQuantity: number;
+  inputRef: RefObject<HTMLInputElement>;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
+  saveChangedName: () => void;
 }
 
 function Header({
   name,
   isMenuOpen,
   fileQuantity,
-  timeStamp,
+  inputRef,
   onChangeMenuStatus,
   onChangeDialogStatus,
+  saveChangedName,
 }: File) {
   const deleteColor = '#7c8187';
   return (
     <>
       <header className={`header bg-dark-3 flex`}>
         <Menu isMenuOpen={isMenuOpen} onChangeMenuStatus={onChangeMenuStatus} />
-        <FileRename fileName={name} timeStamp={timeStamp} />
+        <FileRename fileName={name} inputRef={inputRef} />
         {fileQuantity > 1 && (
           <SvgIcon
             className='icon-delete'
@@ -36,8 +39,7 @@ function Header({
             onClick={onChangeDialogStatus}
           />
         )}
-
-        <SaveChangeBtn />
+        <SaveChangeBtn saveChangedName={saveChangedName} />
       </header>
     </>
   );
