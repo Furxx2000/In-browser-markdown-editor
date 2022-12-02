@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SideBar from './SideBar';
 import MainContent from './MainContent';
 import Dialog from '../UI/Dialog';
@@ -14,6 +14,7 @@ interface File {
 
 function MarkdownEditor() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [markdownVal, setMarkdownVal] = useState('');
   const [files, setNewFiles] = useState<File[]>([]);
   const [curFile, setCurFile] = useState<File>({
     name: '',
@@ -37,6 +38,7 @@ function MarkdownEditor() {
       });
       setNewFiles(rawData);
       setCurFile(rawData.find((data: File) => data.isSelected));
+      setMarkdownVal(rawData[0].content);
     };
     fetchData();
   }, []);
@@ -101,11 +103,16 @@ function MarkdownEditor() {
   function saveChangedName() {
     if (inputRef.current !== null) {
       const newName = inputRef.current?.value;
-      const newFiles = files.filter((file) => file.isSelected);
+      const newArr = [...files];
+      const targetFile = newArr.find((file) => file.isSelected);
+      if (targetFile) targetFile.name = newName;
       setCurFile({ ...curFile, name: newName });
-      console.log(curFile);
-      // setNewFiles([...newFiles, curFile]);
+      setNewFiles(newArr);
     }
+  }
+
+  function changeMarkdownVal(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    console.log(e.target.value);
   }
 
   return (
@@ -121,9 +128,11 @@ function MarkdownEditor() {
         isMenuOpen={menuStatus}
         fileQuantity={files.length}
         inputRef={inputRef}
+        markdownVal={markdownVal}
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
         saveChangedName={saveChangedName}
+        changeMarkdownVal={changeMarkdownVal}
       />
       <Dialog
         name={curFile.name}
