@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import '../../scss/Markdown.scss';
 import GrayHeader from './GrayHeader';
 
 interface Props {
   content: string;
+  markdownVal: string;
   onChangeMarkdownStatus: () => void;
+  changeMarkdownVal: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function Markdown({ content, onChangeMarkdownStatus }: Props) {
-  const [markdown, setMarkdown] = useState(content);
-
-  useEffect(() => {
-    setMarkdown(content);
-  }, [content]);
-
-  function handleMarkdownValue(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setMarkdown(e.target.value);
-  }
+function Markdown({
+  content,
+  markdownVal,
+  changeMarkdownVal,
+  onChangeMarkdownStatus,
+}: Props) {
+  useEffect(() => {}, [content]);
 
   return (
     <section className='markdown'>
@@ -29,8 +28,8 @@ function Markdown({ content, onChangeMarkdownStatus }: Props) {
         id='markdown'
         className='markdown-content ff-roboto-mono fs-250 text-dark-4'
         name='markdown'
-        value={markdown}
-        onChange={handleMarkdownValue}
+        value={markdownVal}
+        onChange={changeMarkdownVal}
       ></textarea>
     </section>
   );
