@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SideBar from './SideBar';
 import MainContent from './MainContent';
 import Dialog from '../UI/Dialog';
@@ -13,6 +13,7 @@ interface File {
 }
 
 function MarkdownEditor() {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [files, setNewFiles] = useState<File[]>([]);
   const [curFile, setCurFile] = useState<File>({
     name: '',
@@ -48,15 +49,29 @@ function MarkdownEditor() {
     setIsOpenDialog(!isOpenDialog);
   }
 
-  function deleteCurFile(fileName: string) {
-    const newFiles = files.filter((file) => file.name !== fileName);
-    newFiles[0].isSelected = true;
+  function deleteCurFile(timeStamp: string) {
+    const newFiles = files
+      .filter((file) => file.timeStamp !== timeStamp)
+      .map((file, index) => {
+        return {
+          ...file,
+          isSelected: index === 0,
+        };
+      });
     setNewFiles(newFiles);
-    setCurFile({ ...newFiles[0], isSelected: true });
+    setCurFile(newFiles[0]);
     setIsOpenDialog(!isOpenDialog);
   }
 
   function AddNewDocument() {
+    // Each new document should have 3 seconds gap, otherwise return;
+    const lastDocumentTimeStamp =
+      Math.floor(new Date().getTime() / 1000) - +files[0].timeStamp;
+    if (lastDocumentTimeStamp < 3) {
+      return;
+    }
+
+    // Create new document template
     const year = new Date().getFullYear();
     const month = MONTHS[new Date().getMonth()];
     const date = new Date().getDate().toString().padStart(2, '0');
@@ -72,16 +87,25 @@ function MarkdownEditor() {
   }
 
   function changeCurFile(timeStamp: string) {
-    const targetFile =
-      files?.find((file: File) => file.timeStamp === timeStamp) || curFile;
-    const newFiles = files.map((file: File) => {
+    const newFiles = files.map((file) => {
       return {
         ...file,
-        isSelected: targetFile.timeStamp === file.timeStamp,
+        isSelected: timeStamp === file.timeStamp,
       };
     });
+    const targetFile = newFiles.find((file) => file.isSelected) || curFile;
     setNewFiles(newFiles);
-    setCurFile({ ...targetFile, isSelected: true });
+    setCurFile(targetFile);
+  }
+
+  function saveChangedName() {
+    if (inputRef.current !== null) {
+      const newName = inputRef.current?.value;
+      const newFiles = files.filter((file) => file.isSelected);
+      setCurFile({ ...curFile, name: newName });
+      console.log(curFile);
+      // setNewFiles([...newFiles, curFile]);
+    }
   }
 
   return (
@@ -96,8 +120,10 @@ function MarkdownEditor() {
         curFile={curFile}
         isMenuOpen={menuStatus}
         fileQuantity={files.length}
+        inputRef={inputRef}
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
+        saveChangedName={saveChangedName}
       />
       <Dialog
         name={curFile.name}
