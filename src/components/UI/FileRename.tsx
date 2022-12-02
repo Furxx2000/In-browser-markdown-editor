@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { RefObject, useEffect } from 'react';
 import '../../scss/FileRename.scss';
 import SvgIcon from './SvgIcon';
 
 interface Props {
   fileName: string;
-  timeStamp: string;
+  inputRef: RefObject<HTMLInputElement>;
 }
 
-function FileRename({ fileName, timeStamp }: Props) {
-  const [name, setFileName] = useState('welcome.md');
+function FileRename({ fileName, inputRef }: Props) {
   const mql = window.matchMedia('(max-width: 480px)');
 
-  function handleSetFileName(e: React.ChangeEvent<HTMLInputElement>) {
-    setFileName(e.target.value.trim());
-  }
+  useEffect(() => {
+    if (inputRef.current !== null) {
+      inputRef.current.value = fileName;
+    }
+  }, [fileName]);
 
   return (
     <div className='file-rename flex text-white'>
@@ -35,8 +36,7 @@ function FileRename({ fileName, timeStamp }: Props) {
           className='text-white'
           name='document-name'
           type='text'
-          value={fileName}
-          onChange={handleSetFileName}
+          ref={inputRef}
         />
       </div>
     </div>
