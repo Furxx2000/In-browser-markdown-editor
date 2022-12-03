@@ -1,10 +1,11 @@
 .backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   opacity: 0;
+  z-index: 100;
   visibility: hidden;
   transition: 0.4s ease;
 
@@ -17,13 +18,14 @@
 .dialog {
   flex-direction: column;
   gap: 1rem;
-  position: absolute;
+  position: fixed;
   min-width: 92%;
   min-height: 218px;
   padding: 1.5rem;
   top: 50%;
   left: 50%;
   opacity: 0;
+  z-index: 110;
   translate: -50% -30%;
   transition: 0.4s ease;
   visibility: hidden;
