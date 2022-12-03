@@ -1,7 +1,14 @@
 .main-content {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  will-change: left;
   transition: 0.4s ease;
 }
 
 .main-content.is-active {
-  translate: 250px 0;
+  left: 250px;
 }
