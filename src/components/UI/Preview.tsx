@@ -14,9 +14,9 @@ function Preview({ content, onChangeMarkdownStatus }: Props) {
         text='PREVIEW'
         onChangeMarkdownStatus={onChangeMarkdownStatus}
       />
-      <div className='preview-content ff-roboto-mono fs-250 text-dark-4'>
+      <pre className='preview-content ff-roboto-mono fs-250 text-dark-4'>
         {content}
-      </div>
+      </pre>
     </section>
   );
 }
