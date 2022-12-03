@@ -28,7 +28,9 @@ function Header({
   const deleteColor = '#7c8187';
   return (
     <>
-      <header className={`header bg-dark-3 flex`}>
+      <header
+        className={`header bg-dark-3 flex ${isMenuOpen ? 'is-active' : ''}`}
+      >
         <Menu isMenuOpen={isMenuOpen} onChangeMenuStatus={onChangeMenuStatus} />
         <FileRename fileName={name} inputRef={inputRef} />
         {fileQuantity > 1 && (
