@@ -15,11 +15,10 @@ interface Props {
   isMenuOpen: boolean;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
-  markdownVal: string;
+
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
   saveChangedName: () => void;
-  changeMarkdownVal: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function MainContent({
@@ -27,11 +26,10 @@ function MainContent({
   isMenuOpen,
   fileQuantity,
   inputRef,
-  markdownVal,
+
   onChangeMenuStatus,
   onChangeDialogStatus,
   saveChangedName,
-  changeMarkdownVal,
 }: Props) {
   const [isMarkdown, setIsMarkdown] = useState(true);
 
@@ -54,9 +52,7 @@ function MainContent({
       {isMarkdown ? (
         <Markdown
           content={curFile.content}
-          markdownVal={markdownVal}
           onChangeMarkdownStatus={changeMarkdownStatus}
-          changeMarkdownVal={changeMarkdownVal}
         />
       ) : (
         <Preview
