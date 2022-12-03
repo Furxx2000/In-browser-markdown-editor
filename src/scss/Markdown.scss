@@ -1,16 +1,12 @@
-.markdown-header {
-  height: 42px;
-  align-items: center;
-  justify-content: space-between;
-  padding-inline: 1rem;
+.markdown {
+  padding-top: 56px;
 }
 
 .markdown-content {
   width: 100%;
-  padding: 1rem;
-  resize: none;
-  border: none;
   min-height: 100vh;
-  outline: none;
+  padding: 1rem;
+  padding-top: 42px;
   line-height: 24px;
+  white-space: pre-wrap;
 }
