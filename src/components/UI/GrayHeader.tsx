@@ -1,4 +1,4 @@
-import '../../scss/Markdown.scss';
+import '../../scss/GrayHeader.scss';
 import SvgIcon from './SvgIcon';
 
 interface Props {
