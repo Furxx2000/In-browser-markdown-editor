@@ -141,6 +141,7 @@ function MarkdownEditor() {
         name={curFile.name}
         timeStamp={curFile.timeStamp}
         isOpenDialog={isOpenDialog}
+        isDarkMode={isDarkMode}
         changeDialogStatus={changeDialogStatus}
         deleteCurFile={deleteCurFile}
       />
