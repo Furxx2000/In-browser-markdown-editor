@@ -15,11 +15,20 @@ interface File {
 interface Props {
   files: File[];
   isMenuOpen: boolean;
+  isDarkMode: boolean;
   changeCurFile: (fileName: string) => void;
   addNewDocument: () => void;
+  toggleDarkMode: () => void;
 }
 
-function SideBar({ files, isMenuOpen, changeCurFile, addNewDocument }: Props) {
+function SideBar({
+  files,
+  isMenuOpen,
+  isDarkMode,
+  changeCurFile,
+  addNewDocument,
+  toggleDarkMode,
+}: Props) {
   return (
     <aside className={`side-bar bg-dark-2 ${isMenuOpen ? 'is-active' : ''}`}>
       <nav className='flow'>
@@ -43,7 +52,7 @@ function SideBar({ files, isMenuOpen, changeCurFile, addNewDocument }: Props) {
           ))}
         </ul>
       </nav>
-      <ModeSwitcher />
+      <ModeSwitcher isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
     </aside>
   );
 }
