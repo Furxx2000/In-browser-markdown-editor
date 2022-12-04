@@ -2,20 +2,20 @@ import { useState } from 'react';
 import SvgIcon from './SvgIcon';
 import '../../scss/ModeSwitcher.scss';
 
-function ModeSwitcher() {
-  const [isDarkMode, setMode] = useState(false);
-  const notActive = '#5a6069';
+interface Props {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
 
-  function handleToggleMode() {
-    setMode(!isDarkMode);
-  }
+function ModeSwitcher({ isDarkMode, toggleDarkMode }: Props) {
+  const notActive = '#5a6069';
 
   return (
     <div className='mode-switcher flex'>
       <SvgIcon name='icon-dark-mode' color={isDarkMode ? 'white' : notActive} />
       <div
         className={`toggler bg-gray-1 ${isDarkMode ? 'dark-mode' : ''}`}
-        onClick={handleToggleMode}
+        onClick={toggleDarkMode}
       ></div>
       <SvgIcon
         name='icon-light-mode'
