@@ -35,6 +35,12 @@
   --letter-spacing-1: 2px;
 }
 
+// body.dark-mode {
+//   *[class*='dark:'] {
+//     background-color: inherit !important;
+//   }
+// }
+
 *,
 *::after,
 *::before {
@@ -212,11 +218,11 @@ h6 {
 .text-white {
   color: var(--clr-white-1);
 }
-.text-gray-3 {
-  color: var(--clr-gray-3);
-}
 .text-gray-2 {
   color: var(--clr-gray-2);
+}
+.text-gray-3 {
+  color: var(--clr-gray-3);
 }
 .text-dark-4 {
   color: var(--clr-dark-4);
