@@ -4,8 +4,16 @@
   padding-block: 16px;
   margin-right: auto;
 
-  & span {
+  span {
     display: block;
     line-height: 15px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  p {
+    word-break: break-all;
   }
 }
