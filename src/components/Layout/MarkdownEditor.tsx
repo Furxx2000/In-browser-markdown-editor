@@ -14,8 +14,8 @@ interface File {
 
 function MarkdownEditor() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [markdownVal, setMarkdownVal] = useState('');
   const [files, setNewFiles] = useState<File[]>([]);
+  const [isDarkMode, setMode] = useState(false);
   const [curFile, setCurFile] = useState<File>({
     name: '',
     content: '',
@@ -38,7 +38,6 @@ function MarkdownEditor() {
       });
       setNewFiles(rawData);
       setCurFile(rawData.find((data: File) => data.isSelected));
-      setMarkdownVal(rawData[0].content);
     };
     fetchData();
   }, []);
@@ -113,19 +112,27 @@ function MarkdownEditor() {
     }
   }
 
+  function toggleDarkMode() {
+    setMode(!isDarkMode);
+    document.body.classList.toggle('dark-mode');
+  }
+
   return (
-    <div className={`root-container ${menuStatus ? 'is-active' : ''}`}>
+    <div className='root-container'>
       <SideBar
         isMenuOpen={menuStatus}
         files={files}
+        isDarkMode={isDarkMode}
         changeCurFile={changeCurFile}
         addNewDocument={AddNewDocument}
+        toggleDarkMode={toggleDarkMode}
       />
       <MainContent
         curFile={curFile}
         isMenuOpen={menuStatus}
         fileQuantity={files.length}
         inputRef={inputRef}
+        isDarkMode={isDarkMode}
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
         saveChangedName={saveChangedName}

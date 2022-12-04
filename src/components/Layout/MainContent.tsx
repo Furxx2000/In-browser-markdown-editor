@@ -15,7 +15,7 @@ interface Props {
   isMenuOpen: boolean;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
-
+  isDarkMode: boolean;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
   saveChangedName: () => void;
@@ -26,7 +26,7 @@ function MainContent({
   isMenuOpen,
   fileQuantity,
   inputRef,
-
+  isDarkMode,
   onChangeMenuStatus,
   onChangeDialogStatus,
   saveChangedName,
@@ -52,11 +52,13 @@ function MainContent({
       {isMarkdown ? (
         <Markdown
           content={curFile.content}
+          isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
         />
       ) : (
         <Preview
           content={curFile.content}
+          isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
         />
       )}
