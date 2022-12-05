@@ -14,6 +14,9 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
   useEffect(() => {
     const isHeadingText = /^#+\s+/g;
     const isOrderedList = /^[0-9].\s+/g;
+    const isUnOrderedList = /^-\s+/g;
+    const isBlockQuote = /^>\s+/g;
+    const isHyperLink = /\[\w+\s*\w+\]\(https:\/\/.+\)/g;
 
     const markdownTemplate = content
       .split('\n\n')
@@ -22,9 +25,9 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
           const regexForHashtag = /#+/g;
           const tagNumber = el.match(regexForHashtag)![0].length;
 
-          return `<div class='preview-group'><h${tagNumber}>${el
+          return `<h${tagNumber}>${el
             .replaceAll('#', '')
-            .trim()}</h${tagNumber}></div>`;
+            .trim()}</h${tagNumber}>`;
         }
 
         if (isOrderedList.test(el)) {
@@ -32,13 +35,42 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
             .split('\n')
             .map((f) => f.replaceAll(isOrderedList, ''));
           const orderedTemp = `
-            <ol class='ff-roboto-slab text-gray-2 fs-250 flow'>
-              ${listArr.map((el) => `<li>${el}</li>`)}
-            </ol>
+          <ol class='flow'>
+            ${listArr.map((el) => `<li>${el}</li>`)}
+          </ol>
           `.replaceAll(',', '');
           return orderedTemp;
         }
-        return `<div class="ff-roboto-slab text-gray-2 fs-250">${el}</div>`;
+
+        if (isUnOrderedList.test(el)) {
+          const listArr = el
+            .split('\n')
+            .map((f) => f.replaceAll(isUnOrderedList, ''));
+          const unOrderedTemp = `
+            <ul class='flow'>
+              ${listArr.map((a) => `<li>${a}</li>`)}
+            </ul>
+          `.replaceAll(',', '');
+          return unOrderedTemp;
+        }
+
+        if (isBlockQuote.test(el)) {
+          console.log(el.match(isHyperLink));
+          const blockQuoteTemp = `
+            <div class='block-quote'>
+              <p>
+                ${el.replace('>', '')}
+              </p>
+            </div>
+          `;
+          return blockQuoteTemp;
+        }
+
+        if (isHyperLink.test(el)) {
+          console.log('Hi');
+        }
+
+        return `<p>${el}</p>`;
       })
       .join('\n');
     setHtmlContent(markdownTemplate);
@@ -52,10 +84,12 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
         isDarkMode={isDarkMode}
         onChangeMarkdownStatus={onChangeMarkdownStatus}
       />
-      <pre
-        className={`preview-content ${isDarkMode ? 'bg-dark-1' : ''}`}
+      <div
+        className={`preview-content grid ff-roboto-slab text-gray-2 fs-250  ${
+          isDarkMode ? 'bg-dark-1' : ''
+        }`}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
-      ></pre>
+      ></div>
     </section>
   );
 }
