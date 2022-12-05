@@ -35,12 +35,6 @@
   --letter-spacing-1: 2px;
 }
 
-// body.dark-mode {
-//   *[class*='dark:'] {
-//     background-color: inherit !important;
-//   }
-// }
-
 *,
 *::after,
 *::before {
@@ -57,6 +51,7 @@ h2,
 h3,
 h4,
 h5,
+h6,
 p,
 figure,
 picture,
@@ -104,6 +99,7 @@ button {
 }
 
 h1 {
+  color: var(--clr-dark-4);
   font-size: 2rem;
   font-weight: var(--fw-bold);
   font-family: var(--ff-roboto-slab);
@@ -111,12 +107,14 @@ h1 {
 }
 
 h2 {
+  color: var(--clr-dark-4);
   font-size: 28px;
   font-weight: var(--fw-light);
   font-family: var(--ff-roboto-slab);
 }
 
 h3 {
+  color: var(--clr-dark-4);
   font-size: 24px;
   font-weight: var(--fw-bold);
   font-family: var(--ff-roboto-slab);
@@ -130,6 +128,7 @@ h4 {
 }
 
 h5 {
+  color: var(--clr-dark-4);
   font-size: 16px;
   font-weight: var(--fw-bold);
   font-family: var(--ff-roboto-slab);
