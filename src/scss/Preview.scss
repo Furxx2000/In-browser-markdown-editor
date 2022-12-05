@@ -1,13 +1,19 @@
-.preview {
-  padding-top: 56px;
-}
-
 .preview-content {
   width: 100%;
   min-height: 100vh;
-  padding: 1rem;
-  padding-top: 42px;
+  margin: 0;
+  padding: 1rem 20px;
+  padding-top: 58px;
   line-height: 24px;
   white-space: pre-wrap;
-  transition: 0.8s ease;
+  transition: 0.5s ease;
+
+  ul,
+  ol {
+    padding-left: 40px;
+
+    li {
+      padding-left: 0.5rem;
+    }
+  }
 }

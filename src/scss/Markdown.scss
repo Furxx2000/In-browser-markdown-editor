@@ -1,13 +1,10 @@
-.markdown {
-  padding-top: 56px;
-}
-
 .markdown-content {
   width: 100%;
   min-height: 100vh;
+  margin: 0;
   padding: 1rem;
-  padding-top: 42px;
+  padding-top: 58px;
   line-height: 24px;
   white-space: pre-wrap;
-  transition: 0.8s ease;
+  transition: 0.5s ease;
 }

@@ -7,13 +7,19 @@
   left: -250px;
   width: 250px;
   height: 100vh;
-  padding: 1.8rem 1.5rem;
-  --flow: 27px;
-  will-change: left;
-  transition: 0.4s ease;
+  padding: 27px 1.5rem;
+  transition: left 0.4s ease;
 
   &.is-active {
     left: 0;
+  }
+
+  nav {
+    gap: 27px;
+  }
+
+  ul {
+    margin-top: -19px;
   }
 }
 
