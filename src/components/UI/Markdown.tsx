@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../../scss/Markdown.scss';
 import GrayHeader from './GrayHeader';
 
@@ -9,7 +9,17 @@ interface Props {
 }
 
 function Markdown({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
-  useEffect(() => {}, [content]);
+  const [htmlContent, setHtmlContent] = useState('');
+
+  useEffect(() => {
+    const markdownTemplate = content
+      .split('\n\n')
+      .map((el) => {
+        return `<div>${el}</div>`;
+      })
+      .join(' ');
+    setHtmlContent(markdownTemplate);
+  }, [content]);
 
   return (
     <section className='markdown'>
@@ -23,9 +33,8 @@ function Markdown({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
         className={`markdown-content ff-roboto-mono fs-250 text-${
           isDarkMode ? 'gray-3' : 'dark-4'
         } ${isDarkMode ? 'bg-dark-1' : ''}`}
-      >
-        {content}
-      </pre>
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      ></pre>
     </section>
   );
 }
