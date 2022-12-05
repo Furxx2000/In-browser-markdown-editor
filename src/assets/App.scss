@@ -60,7 +60,8 @@ h5,
 p,
 figure,
 picture,
-ul {
+ul,
+ol {
   margin: 0;
   padding: 0;
 }
@@ -84,7 +85,6 @@ svg {
   vertical-align: middle;
 }
 
-li,
 a {
   list-style-type: none;
 }
@@ -104,40 +104,42 @@ button {
 }
 
 h1 {
-  font-family: var(--ff-roboto-slab);
+  font-size: 2rem;
   font-weight: var(--fw-bold);
+  font-family: var(--ff-roboto-slab);
+  line-height: 42.2px;
 }
 
 h2 {
-  font-family: var(--ff-roboto-slab);
-  font-weight: var(--fw-light);
   font-size: 28px;
+  font-weight: var(--fw-light);
+  font-family: var(--ff-roboto-slab);
 }
 
 h3 {
-  font-family: var(--ff-roboto-slab);
-  font-weight: var(--fw-bold);
   font-size: 24px;
+  font-weight: var(--fw-bold);
+  font-family: var(--ff-roboto-slab);
 }
 
 h4 {
-  font-family: var(--ff-roboto-slab);
-  font-weight: var(--fw-bold);
-  font-size: 20px;
   color: var(--clr-dark-4);
+  font-size: 20px;
+  font-weight: var(--fw-bold);
+  font-family: var(--ff-roboto-slab);
 }
 
 h5 {
-  font-family: var(--ff-roboto-slab);
-  font-weight: var(--fw-bold);
   font-size: 16px;
+  font-weight: var(--fw-bold);
+  font-family: var(--ff-roboto-slab);
 }
 
 h6 {
-  font-family: var(--ff-roboto-slab);
-  font-weight: var(--fw-bold);
-  font-size: 14px;
   color: var(--clr-orange-1);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  font-family: var(--ff-roboto-slab);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -175,7 +177,7 @@ h6 {
 }
 
 .flow > *:where(:not(:first-child)) {
-  margin-top: var(--flow, 1rem);
+  margin-top: var(--flow, 4px);
 }
 
 .sr-only {
@@ -236,6 +238,9 @@ h6 {
 
 .fs-200 {
   font-size: var(--fs-200);
+}
+.fs-250 {
+  font-size: var(--fs-250);
 }
 
 .fw-light {
