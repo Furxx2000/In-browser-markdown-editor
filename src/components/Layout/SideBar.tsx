@@ -31,7 +31,7 @@ function SideBar({
 }: Props) {
   return (
     <aside className={`side-bar bg-dark-2 ${isMenuOpen ? 'is-active' : ''}`}>
-      <nav className='flow'>
+      <nav className='grid'>
         <SvgIcon className='icon-logo' name='logo' color='white' />
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
           MY DOCUMENTS
