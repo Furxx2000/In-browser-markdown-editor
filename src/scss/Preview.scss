@@ -15,6 +15,10 @@
       padding-left: 0.5rem;
     }
 
+    &:not(ol) li {
+      list-style-type: disc;
+    }
+
     &:not(ol) li::marker {
       font-size: 3px;
       color: var(--clr-orange-1);
