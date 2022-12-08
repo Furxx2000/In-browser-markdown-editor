@@ -6,6 +6,7 @@ function ConvertMarkdownToPreview(content: string) {
   const isUnOrderedList = /^-\s+/g;
   const isBlockQuote = /^>\s+/g;
   const isHyperLink = /\[\w+\s*\w+\]\(https:\/\/.+\)/g;
+  const isInlineCode = /\`.+\`/g;
 
   const markdownTemplate = content
     .split('\n\n')
@@ -70,6 +71,10 @@ function ConvertMarkdownToPreview(content: string) {
         const linkTemp = `<a href='${urlTemp}' target='_blank'>${linkTextTemp}</a>`;
 
         temp = temp.replace(isHyperLink, linkTemp);
+      }
+
+      if (isInlineCode.test(el)) {
+        const regex = /[^\`].+[^\`$]/g;
       }
 
       return temp;
