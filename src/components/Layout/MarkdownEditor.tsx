@@ -108,13 +108,16 @@ function MarkdownEditor() {
       const targetFile = newArr.find((file) => file.isSelected);
       if (targetFile) targetFile.name = newName;
       setCurFile({ ...curFile, name: newName });
-      setNewFiles(newArr);
     }
   }
 
   function toggleDarkMode() {
     setMode(!isDarkMode);
     document.body.classList.toggle('dark-mode');
+  }
+
+  function changeMarkdownContent(markdownContent: string) {
+    setCurFile({ ...curFile, content: markdownContent });
   }
 
   return (
@@ -136,6 +139,7 @@ function MarkdownEditor() {
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
         saveChangedName={saveChangedName}
+        changeMarkdownContent={changeMarkdownContent}
       />
       <Dialog
         name={curFile.name}
