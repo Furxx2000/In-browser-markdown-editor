@@ -2,7 +2,7 @@ import Markdown from '../UI/Markdown';
 import Header from './Header';
 import '../../scss/MainContent.scss';
 import Preview from '../UI/Preview';
-import React, { RefObject, useState } from 'react';
+import { RefObject, useState } from 'react';
 
 interface File {
   name: string;
@@ -19,6 +19,7 @@ interface Props {
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
   saveChangedName: () => void;
+  changeMarkdownContent: (value: string) => void;
 }
 
 function MainContent({
@@ -30,6 +31,7 @@ function MainContent({
   onChangeMenuStatus,
   onChangeDialogStatus,
   saveChangedName,
+  changeMarkdownContent,
 }: Props) {
   const [isMarkdown, setIsMarkdown] = useState(true);
 
@@ -54,6 +56,7 @@ function MainContent({
           content={curFile.content}
           isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
+          onChangeMarkdownContent={changeMarkdownContent}
         />
       ) : (
         <Preview
