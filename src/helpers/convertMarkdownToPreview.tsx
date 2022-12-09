@@ -1,7 +1,7 @@
 import {} from './months';
 
 function ConvertMarkdownToPreview(content: string) {
-  const isHeadingText = /^#+\s+/g;
+  const isHeadingText = /\#+\s+\w+/g;
   const isOrderedList = /^[0-9].\s+/g;
   const isUnOrderedList = /^-\s+/g;
   const isBlockQuote = /^>\s+/g;
@@ -9,12 +9,12 @@ function ConvertMarkdownToPreview(content: string) {
   const isInlineCode = /\`.+\`/g;
 
   const markdownTemplate = content
-    .split('\n\n')
+    .split('\n')
     .map((el) => {
       let temp = `<p>${el}</p>`;
 
       if (isHeadingText.test(el)) {
-        const regexForHashtag = /#+/g;
+        const regexForHashtag = /\#+/g;
         const tagNumber = el.match(regexForHashtag)![0].length;
 
         temp = `<h${tagNumber}>${el
@@ -75,6 +75,11 @@ function ConvertMarkdownToPreview(content: string) {
 
       if (isInlineCode.test(el)) {
         const regex = /[^\`].+[^\`$]/g;
+      }
+
+      if (el === '\n') {
+        console.log('Hie');
+        temp = temp.replace(el, '<br>');
       }
 
       return temp;
