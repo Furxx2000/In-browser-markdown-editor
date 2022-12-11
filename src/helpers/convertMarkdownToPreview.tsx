@@ -1,17 +1,45 @@
 import {} from './months';
 
+function convertToOrderedList(arr: string[]) {
+  const isOrderedList = /^[0-9].\s+/;
+
+  const result = arr.reduce((accu: string[], cur: string) => {
+    if (isOrderedList.test(cur) && isOrderedList.test(accu.slice(-1)[0])) {
+      return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]},${cur}`];
+    } else {
+      return [...accu, cur];
+    }
+  }, []);
+
+  return result;
+}
+
+function convertToUnOrderedList(arr: string[]) {
+  const isUnOrderedList = /^-\s+/;
+
+  const result = arr.reduce((accu: string[], cur: string) => {
+    if (isUnOrderedList.test(cur) && isUnOrderedList.test(accu.slice(-1)[0])) {
+      return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]},${cur}`];
+    } else {
+      return [...accu, cur];
+    }
+  }, []);
+
+  return result;
+}
+
 function ConvertMarkdownToPreview(content: string) {
-  const isHeadingText = /\#+\s+\w+/g;
-  const isOrderedList = /^[0-9].\s+/g;
-  const isUnOrderedList = /^-\s+/g;
-  const isBlockQuote = /^>\s+/g;
-  const isHyperLink = /\[\w+\s*\w+\]\(https:\/\/.+\)/g;
-  const isInlineCode = /\`.+\`/g;
+  const isHeadingText = /^\#+\s+\w+/;
+
+  const isBlockQuote = /^>\s+/;
+  const isHyperLink = /\[\w+\s*\w+\]\(https:\/\/.+\)/;
+  const isInlineCode = /\`[^\`].+\`/;
+  const removePTag = /[^<\/*p>]+/g;
 
   const markdownTemplate = content
     .split('\n')
-    .map((el) => {
-      let temp = `<p>${el}</p>`;
+    .reduce((accu: string[], el: string) => {
+      let temp = el ? `<p>${el}</p>` : '';
 
       if (isHeadingText.test(el)) {
         const regexForHashtag = /\#+/g;
@@ -20,30 +48,6 @@ function ConvertMarkdownToPreview(content: string) {
         temp = `<h${tagNumber}>${el
           .replaceAll('#', '')
           .trim()}</h${tagNumber}>`;
-      }
-
-      if (isOrderedList.test(el)) {
-        const listArr = el
-          .split('\n')
-          .map((f) => f.replaceAll(isOrderedList, ''));
-        const orderedTemp = `
-          <ol class='flow'>
-            ${listArr.map((el) => `<li>${el}</li>`)}
-          </ol>
-          `.replaceAll(',', '');
-        temp = orderedTemp;
-      }
-
-      if (isUnOrderedList.test(el)) {
-        const listArr = el
-          .split('\n')
-          .map((f) => f.replaceAll(isUnOrderedList, ''));
-        const unOrderedTemp = `
-            <ul class='flow'>
-              ${listArr.map((a) => `<li>${a}</li>`)}
-            </ul>
-          `.replaceAll(',', '');
-        temp = unOrderedTemp;
       }
 
       if (isBlockQuote.test(el)) {
@@ -75,17 +79,20 @@ function ConvertMarkdownToPreview(content: string) {
 
       if (isInlineCode.test(el)) {
         const regex = /[^\`].+[^\`$]/g;
+        const [str] = el.match(isInlineCode)!;
+        const [str2] = str.match(regex)!;
+        const tempp = `<code>${str2}</code>`;
+        temp = el.replace(isInlineCode, '');
       }
 
-      if (el === '\n') {
-        console.log('Hie');
-        temp = temp.replace(el, '<br>');
-      }
+      return [...accu, temp];
+    }, [])
+    .join('');
 
-      return temp;
-    })
-    .join('\n');
-
+  const firstArr = content.split('\n').map((el) => el);
+  const secondArr = convertToOrderedList(firstArr);
+  const thirdArr = convertToUnOrderedList(secondArr);
+  console.log(thirdArr);
   return markdownTemplate;
 }
 
