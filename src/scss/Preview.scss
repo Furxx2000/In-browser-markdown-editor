@@ -20,7 +20,6 @@
     }
 
     &:not(ol) li::marker {
-      font-size: 3px;
       color: var(--clr-orange-1);
     }
   }
