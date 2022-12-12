@@ -141,6 +141,11 @@ h6 {
   font-family: var(--ff-roboto-slab);
 }
 
+code {
+  color: var(--clr-dark-4);
+  font-family: var(--ff-roboto-mono);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::after,
@@ -233,6 +238,9 @@ h6 {
 }
 .text-orange-1 {
   color: var(--clr-orange-1);
+}
+.text-orange-2 {
+  color: var(--clr-orange-2);
 }
 
 .fs-200 {
