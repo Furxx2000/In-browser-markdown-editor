@@ -1,99 +1,159 @@
 import {} from './months';
+import {
+  HeadingRegex,
+  OrderedListRegex,
+  UnOrderedListRegex,
+  BlockquoteRegex,
+  paragraphRegex,
+  HyperLinkRegex,
+  HyperLinkRegex2,
+  InlineCodeRegex,
+  CodeBlockRegex,
+} from './Regex';
 
-function convertToOrderedList(arr: string[]) {
-  const isOrderedList = /^[0-9].\s+/;
-
+function groupListsIntoString(arr: string[], regex: any) {
   const result = arr.reduce((accu: string[], cur: string) => {
-    if (isOrderedList.test(cur) && isOrderedList.test(accu.slice(-1)[0])) {
-      return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]},${cur}`];
+    if (regex.test(cur) && regex.test(accu.slice(-1)[0])) {
+      return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]}|${cur}`];
     } else {
       return [...accu, cur];
     }
   }, []);
-
   return result;
 }
+function groupOrderedAndUnOrderedListsToString(arr: string[]) {
+  const regexArr = [OrderedListRegex, UnOrderedListRegex];
+  regexArr.forEach((regex) => {
+    arr = groupListsIntoString(arr, regex);
+  });
+  return arr;
+}
 
-function convertToUnOrderedList(arr: string[]) {
-  const isUnOrderedList = /^-\s+/;
-
-  const result = arr.reduce((accu: string[], cur: string) => {
-    if (isUnOrderedList.test(cur) && isUnOrderedList.test(accu.slice(-1)[0])) {
-      return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]},${cur}`];
-    } else {
-      return [...accu, cur];
+function convertHeading(arr: string[]) {
+  const headingTextArr = arr.map((el) => {
+    if (HeadingRegex.test(el)) {
+      const [headingTag] = el.match(HeadingRegex)!;
+      const headingContent = el.replace(HeadingRegex, '').trim();
+      const headingTemp = `
+        <h${headingTag.length}>${headingContent}</h${headingTag.length}>
+      `.trim();
+      return headingTemp;
     }
-  }, []);
+    return el;
+  });
+  return headingTextArr;
+}
 
-  return result;
+function convertList(el: string, regex: any) {
+  const listArr = el.split('|').map((list) => list.replace(regex, ''));
+  const listType = regex === OrderedListRegex ? 'ol' : 'ul';
+  const listTemp = `<${listType} class='flow'>${listArr
+    .map((list) => `<li>${list}</li>`)
+    .join('')}</${listType}>`;
+  return listTemp;
+}
+
+function convertLists(arr: string[]) {
+  const listTextArr = arr.map((el) => {
+    if (OrderedListRegex.test(el)) return convertList(el, OrderedListRegex);
+    if (UnOrderedListRegex.test(el)) return convertList(el, UnOrderedListRegex);
+    return el;
+  });
+  return listTextArr;
+}
+
+function convertBlockquote(arr: string[]) {
+  const blockquoteArr = arr.map((el) => {
+    if (BlockquoteRegex.test(el)) {
+      const blockquoteContent = el.replace(BlockquoteRegex, '');
+      const blockquoteTemp = `<div class='block-quote'><p>${blockquoteContent}</p></div>`;
+      return blockquoteTemp;
+    }
+    return el;
+  });
+  return blockquoteArr;
+}
+
+function convertParagraph(arr: string[]) {
+  const plainTextArr = arr.map((el) => {
+    if (paragraphRegex.test(el)) {
+      const paragraphTemp = `<p>${el}</p>`;
+      return paragraphTemp;
+    }
+    return el;
+  });
+  return plainTextArr;
+}
+
+function convertHyperLink(arr: string[]) {
+  const hyperLinkArr = arr.map((el) => {
+    if (HyperLinkRegex.test(el)) {
+      const [linkStr] = el.match(HyperLinkRegex)!;
+      const [text, url] = linkStr.match(HyperLinkRegex2)!;
+      const linkTemp = `<a href='${url}' target='_blank'>${text}</a>`;
+      const newTemp = el.replace(HyperLinkRegex, linkTemp);
+      return newTemp;
+    }
+    return el;
+  });
+  return hyperLinkArr;
+}
+
+function convertInlineCode(arr: string[]) {
+  const inlineCodeArr = arr.map((el) => {
+    if (InlineCodeRegex.test(el)) {
+      const [inlineCodeStr] = el.match(InlineCodeRegex)!;
+      const HTMLEntityStr = inlineCodeStr
+        .replaceAll('`', '')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+      const inlineCodeTemp = `<code>${HTMLEntityStr}</code>`;
+      const newTemp = el.replace(InlineCodeRegex, inlineCodeTemp);
+      return newTemp;
+    }
+    return el;
+  });
+  return inlineCodeArr;
 }
 
 function ConvertMarkdownToPreview(content: string) {
-  const isHeadingText = /^\#+\s+\w+/;
+  const textArr = content.split('\n').map((el) => el);
+  const convertedArr = groupOrderedAndUnOrderedListsToString(textArr);
+  const headingTextArr = convertHeading(convertedArr);
+  const listTextArr = convertLists(headingTextArr);
+  const blockquoteArr = convertBlockquote(listTextArr);
+  const paragraphArr = convertParagraph(blockquoteArr);
+  const hyperLinkArr = convertHyperLink(paragraphArr);
+  const inlineCodeArr = convertInlineCode(hyperLinkArr);
+  const codeBlockArr = convertCodeBlock(inlineCodeArr);
 
-  const isBlockQuote = /^>\s+/;
-  const isHyperLink = /\[\w+\s*\w+\]\(https:\/\/.+\)/;
-  const isInlineCode = /\`[^\`].+\`/;
-  const removePTag = /[^<\/*p>]+/g;
+  function convertCodeBlock(arr: string[]) {
+    let codeBlockStartsIndex = 0;
+    let codeBlockEndIndex = 0;
 
-  const markdownTemplate = content
-    .split('\n')
-    .reduce((accu: string[], el: string) => {
-      let temp = el ? `<p>${el}</p>` : '';
-
-      if (isHeadingText.test(el)) {
-        const regexForHashtag = /\#+/g;
-        const tagNumber = el.match(regexForHashtag)![0].length;
-
-        temp = `<h${tagNumber}>${el
-          .replaceAll('#', '')
-          .trim()}</h${tagNumber}>`;
+    const codeBlockArr = arr.map((el, index) => {
+      if (CodeBlockRegex.test(el)) {
+        if (!codeBlockStartsIndex) codeBlockStartsIndex = index;
+        else codeBlockEndIndex = index;
       }
+      return el;
+    });
+    const codeBlockStr = codeBlockArr
+      .slice(codeBlockStartsIndex + 1, codeBlockEndIndex)
+      .join('\n')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;');
+    const codeBlockTemp = `
+      <pre><code>${codeBlockStr}</code></pre>
+    `;
+    console.log(`Start: ${codeBlockStartsIndex}`);
+    console.log(`End: ${codeBlockEndIndex}`);
+    console.log(codeBlockTemp);
+    return codeBlockArr;
+  }
 
-      if (isBlockQuote.test(el)) {
-        const blockQuoteTemp = `
-            <div class='block-quote'>
-              <p>
-                ${el.replace('>', '')}
-              </p>
-            </div>
-          `;
-        temp = blockQuoteTemp;
-      }
-
-      if (isHyperLink.test(el)) {
-        const [str] = temp.match(isHyperLink)!;
-        const regex = /\[\w+\s*\w+\]|\(https:\/\/.+\)/g;
-
-        const [linkText, url] = str.match(regex)!;
-        const textRegex = /\w+\s*\w+/g;
-
-        const [linkTextTemp] = linkText.match(textRegex)!;
-        const urlRegex = /https:\/\/.+[^\)$]/g;
-
-        const [urlTemp] = url.match(urlRegex)!;
-        const linkTemp = `<a href='${urlTemp}' target='_blank'>${linkTextTemp}</a>`;
-
-        temp = temp.replace(isHyperLink, linkTemp);
-      }
-
-      if (isInlineCode.test(el)) {
-        const regex = /[^\`].+[^\`$]/g;
-        const [str] = el.match(isInlineCode)!;
-        const [str2] = str.match(regex)!;
-        const tempp = `<code>${str2}</code>`;
-        temp = el.replace(isInlineCode, '');
-      }
-
-      return [...accu, temp];
-    }, [])
-    .join('');
-
-  const firstArr = content.split('\n').map((el) => el);
-  const secondArr = convertToOrderedList(firstArr);
-  const thirdArr = convertToUnOrderedList(secondArr);
-  console.log(thirdArr);
-  return markdownTemplate;
+  console.log(codeBlockArr);
+  return codeBlockArr.join('');
 }
 
 export default ConvertMarkdownToPreview;
