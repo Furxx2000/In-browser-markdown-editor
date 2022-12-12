@@ -13,7 +13,7 @@ function SideBarList({ fileName, date, isSelected }: Props) {
       <SvgIcon name='icon-document' color='white' />
       <div className='document-name'>
         <span className='fs-200 fw-light text-gray-3'>{date}</span>
-        <p className={`${isSelected ? 'text-orange-1' : 'text-white'}`}>
+        <p className={`${isSelected ? 'text-orange-2' : 'text-white'}`}>
           {fileName}
         </p>
       </div>
