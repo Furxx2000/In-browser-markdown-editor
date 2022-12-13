@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import '../../scss/Markdown.scss';
 import GrayHeader from './GrayHeader';
 
@@ -14,6 +15,23 @@ function Markdown({
   onChangeMarkdownStatus,
   onChangeMarkdownContent,
 }: Props) {
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  function getIndentWhenPressingTab(
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) {
+    if (e.code === 'Tab') {
+      e.preventDefault();
+
+      textAreaRef.current?.setRangeText(
+        '  ',
+        textAreaRef.current.selectionStart,
+        textAreaRef.current.selectionStart,
+        'end'
+      );
+    }
+  }
+
   return (
     <section className='markdown'>
       <GrayHeader
@@ -26,8 +44,10 @@ function Markdown({
         className={`markdown-content ff-roboto-mono fs-250 text-${
           isDarkMode ? 'gray-3' : 'dark-4'
         } ${isDarkMode ? 'bg-dark-1' : ''}`}
+        ref={textAreaRef}
         value={content}
         onChange={(e) => onChangeMarkdownContent(e.target.value)}
+        onKeyDown={(e) => getIndentWhenPressingTab(e)}
       ></textarea>
     </section>
   );
