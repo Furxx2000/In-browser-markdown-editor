@@ -9,6 +9,9 @@ import {
   HyperLinkRegex2,
   InlineCodeRegex,
   CodeBlockRegex,
+  BoldTextRegex,
+  ItalicTextRegex,
+  DelTextRegex,
 } from './Regex';
 
 function groupListsIntoString(arr: string[], regex: any) {
@@ -116,44 +119,117 @@ function convertInlineCode(arr: string[]) {
   return inlineCodeArr;
 }
 
-function ConvertMarkdownToPreview(content: string) {
-  const textArr = content.split('\n').map((el) => el);
-  const convertedArr = groupOrderedAndUnOrderedListsToString(textArr);
-  const headingTextArr = convertHeading(convertedArr);
-  const listTextArr = convertLists(headingTextArr);
-  const blockquoteArr = convertBlockquote(listTextArr);
-  const paragraphArr = convertParagraph(blockquoteArr);
-  const hyperLinkArr = convertHyperLink(paragraphArr);
-  const inlineCodeArr = convertInlineCode(hyperLinkArr);
-  const codeBlockArr = convertCodeBlock(inlineCodeArr);
-
-  function convertCodeBlock(arr: string[]) {
-    let codeBlockStartsIndex = 0;
-    let codeBlockEndIndex = 0;
-
-    const codeBlockArr = arr.map((el, index) => {
-      if (CodeBlockRegex.test(el)) {
-        if (!codeBlockStartsIndex) codeBlockStartsIndex = index;
-        else codeBlockEndIndex = index;
-      }
-      return el;
-    });
-    const codeBlockStr = codeBlockArr
-      .slice(codeBlockStartsIndex + 1, codeBlockEndIndex)
-      .join('\n')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;');
-    const codeBlockTemp = `
-      <pre><code>${codeBlockStr}</code></pre>
-    `;
-    console.log(`Start: ${codeBlockStartsIndex}`);
-    console.log(`End: ${codeBlockEndIndex}`);
-    console.log(codeBlockTemp);
-    return codeBlockArr;
+function convertCodeBlock(arr: string[]) {
+  interface CodeBlockItem {
+    codeBlockStart: number;
+    codeBlockEnd: number;
   }
 
-  console.log(codeBlockArr);
-  return codeBlockArr.join('');
+  let codeBlockGroup: CodeBlockItem[] = [];
+  let codeBlockStartsIndex = -1;
+  let codeBlockEndIndex = 0;
+
+  const codeBlockArr = arr.map((el, index) => {
+    if (CodeBlockRegex.test(el)) {
+      if (codeBlockStartsIndex === -1) codeBlockStartsIndex = index;
+      else {
+        codeBlockEndIndex = index;
+        const codeBlockItem = {
+          codeBlockStart: codeBlockStartsIndex,
+          codeBlockEnd: codeBlockEndIndex,
+        };
+        codeBlockGroup = [...codeBlockGroup, codeBlockItem];
+        codeBlockStartsIndex = -1;
+        codeBlockEndIndex = 0;
+      }
+    }
+    return el;
+  });
+
+  if (codeBlockGroup.length > 0) {
+    let gap = 0;
+    codeBlockGroup.forEach(({ codeBlockStart, codeBlockEnd }) => {
+      const codeBlockStr = codeBlockArr
+        .slice(codeBlockStart - gap + 1, codeBlockEnd - gap)
+        .join('\n')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+      const codeBlockTemp = `
+    <pre><code>${codeBlockStr}</code></pre>
+  `;
+      const deleteItemNum = codeBlockEnd - codeBlockStart + 1;
+      codeBlockArr.splice(codeBlockStart - gap, deleteItemNum, codeBlockTemp);
+      gap += deleteItemNum - 1;
+    });
+    return codeBlockArr;
+  }
+  return codeBlockArr;
+}
+
+function convertBoldText(arr: string[]) {
+  const boldTextArr = arr.map((el) => {
+    if (BoldTextRegex.test(el)) {
+      const [boldTextStr] = el.match(BoldTextRegex)!;
+      const boldTextContent = boldTextStr.replaceAll('*', '');
+      const boldTextTemp = `<strong>${boldTextContent}</strong>`;
+      const newTemp = el.replace(BoldTextRegex, boldTextTemp);
+      return newTemp;
+    }
+    return el;
+  });
+  return boldTextArr;
+}
+
+function convertItalicText(arr: string[]) {
+  const italicTextArr = arr.map((el) => {
+    if (ItalicTextRegex.test(el)) {
+      const [italicTextStr] = el.match(ItalicTextRegex)!;
+      const italicTextContent = italicTextStr.replaceAll('_', '');
+      const italicTextTemp = `<i>${italicTextContent}</i>`;
+      const newTemp = el.replace(ItalicTextRegex, italicTextTemp);
+      return newTemp;
+    }
+    return el;
+  });
+  return italicTextArr;
+}
+
+function convertDeleteText(arr: string[]) {
+  const deleteTextArr = arr.map((el) => {
+    if (DelTextRegex.test(el)) {
+      const [delTextStr] = el.match(DelTextRegex)!;
+      const delTextContent = delTextStr.replaceAll('~~', '');
+      const delTextTemp = `<del>${delTextContent}</del>`;
+      const newTemp = el.replace(DelTextRegex, delTextTemp);
+      console.log(newTemp);
+      return newTemp;
+    }
+    return el;
+  });
+  return deleteTextArr;
+}
+
+function ConvertMarkdownToPreview(content: string) {
+  const textArr = content.split('\n').map((el) => el);
+  const convertArr = [
+    groupOrderedAndUnOrderedListsToString,
+    convertHeading,
+    convertLists,
+    convertBlockquote,
+    convertCodeBlock,
+    convertHyperLink,
+    convertInlineCode,
+    convertBoldText,
+    convertItalicText,
+    convertDeleteText,
+    convertParagraph,
+  ];
+  const convertedArr = convertArr.reduce(
+    (accumulator: string[], curFunc) =>
+      curFunc(accumulator.length > 0 ? accumulator : textArr),
+    []
+  );
+  return convertedArr.join('');
 }
 
 export default ConvertMarkdownToPreview;
