@@ -1,11 +1,12 @@
 .markdown-content {
+  display: block;
   width: 100%;
   min-height: 100vh;
   margin: 0;
   padding: 1rem;
   padding-top: 58px;
   border: 0;
-  resize: 0;
+  resize: none;
   line-height: 24px;
   white-space: pre-wrap;
   transition: 0.5s ease;
