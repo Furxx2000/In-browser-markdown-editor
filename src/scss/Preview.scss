@@ -1,6 +1,6 @@
 .preview-content {
   width: 100%;
-  --gap: 20px;
+  --gap: 22px;
   margin: 0;
   padding: 1rem 20px;
   padding-top: 58px;
@@ -31,5 +31,36 @@
     background-color: var(--clr-white-1);
     border-radius: 4px;
     font-weight: var(--fw-bold);
+  }
+
+  &.dark-mode {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      color: var(--clr-white-2);
+    }
+
+    .block-quote {
+      color: var(--clr-white-1);
+      background-color: var(--clr-dark-3);
+    }
+
+    a {
+      color: var(--clr-white-1);
+    }
+
+    code {
+      color: var(--clr-white-1);
+    }
+
+    pre {
+      background-color: var(--clr-dark-3);
+    }
+  }
+
+  * {
+    transition: 0.5s ease;
   }
 }
