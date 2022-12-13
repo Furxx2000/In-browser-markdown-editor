@@ -9,6 +9,9 @@ const HyperLinkRegex = /\[.+\]\(https:\/\/.+\)/;
 const HyperLinkRegex2 = /https:\/\/.+[^\)$]|[\w\s]+/g;
 const InlineCodeRegex = /\`[^\`.]+\`/g;
 const CodeBlockRegex = /^[```].+[```$]/g;
+const BoldTextRegex = /[\*\*].+[\*\*$]/;
+const ItalicTextRegex = /[\_].+[\_$]/;
+const DelTextRegex = /[\~\~].+[\~\~$]/;
 
 export {
   HeadingRegex,
@@ -20,4 +23,7 @@ export {
   HyperLinkRegex2,
   InlineCodeRegex,
   CodeBlockRegex,
+  BoldTextRegex,
+  ItalicTextRegex,
+  DelTextRegex,
 };
