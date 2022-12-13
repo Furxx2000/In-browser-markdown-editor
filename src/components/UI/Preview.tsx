@@ -26,8 +26,10 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
         onChangeMarkdownStatus={onChangeMarkdownStatus}
       />
       <div
-        className={`preview-content grid ff-roboto-slab text-gray-2 fs-250  ${
-          isDarkMode ? 'bg-dark-1' : ''
+        className={`preview-content grid ff-roboto-slab text-gray-${
+          isDarkMode ? '3' : '2'
+        } fs-250  ${isDarkMode ? 'bg-dark-1' : ''} ${
+          isDarkMode ? 'dark-mode' : ''
         }`}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       ></div>
