@@ -169,11 +169,19 @@ function convertCodeBlock(arr: string[]) {
 function convertBoldText(arr: string[]) {
   const boldTextArr = arr.map((el) => {
     if (BoldTextRegex.test(el)) {
-      const [boldTextStr] = el.match(BoldTextRegex)!;
-      const boldTextContent = boldTextStr.replaceAll('*', '');
-      const boldTextTemp = `<strong>${boldTextContent}</strong>`;
-      const newTemp = el.replace(BoldTextRegex, boldTextTemp);
-      return newTemp;
+      const boldTextArr = el.match(BoldTextRegex)!;
+      const newTempArr = boldTextArr.map((text) => {
+        const boldTextContent = text.replaceAll('*', '');
+        const boldTextTemp = `<strong>${boldTextContent}</strong>`;
+        return boldTextTemp;
+      });
+
+      let newStr = el.slice();
+
+      newTempArr.forEach((temp) => {
+        newStr = newStr.replace(BoldTextRegex, temp);
+      });
+      return newStr;
     }
     return el;
   });
