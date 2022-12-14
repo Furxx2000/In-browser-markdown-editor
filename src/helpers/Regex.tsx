@@ -5,13 +5,13 @@ const OrderedListRegex = /^[0-9].\s+/;
 const UnOrderedListRegex = /^-\s+/;
 const BlockquoteRegex = /^>\s+/;
 const paragraphRegex = /^\w/;
-const HyperLinkRegex = /\[.+\]\(https:\/\/.+\)/;
+const HyperLinkRegex = /(\[.+?\]\(https:\/\/.+?\))/g;
 const HyperLinkRegex2 = /https:\/\/.+[^\)$]|[\w\s]+/g;
-const InlineCodeRegex = /\`[^\`.]+\`/g;
+const InlineCodeRegex = /(\`[^`]+\`)/g;
 const CodeBlockRegex = /^[```].+[```$]/g;
 const BoldTextRegex = /(\*\*[^*]+\*\*)/g;
-const ItalicTextRegex = /[\_].+[\_$]/;
-const DelTextRegex = /[\~\~].+[\~\~$]/;
+const ItalicTextRegex = /(\_[^_]+\_)/g;
+const DelTextRegex = /(\~\~[^~]+\~\~)/g;
 
 export {
   HeadingRegex,
