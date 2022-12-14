@@ -1,7 +1,7 @@
 import '../../scss/Preview.scss';
 import GrayHeader from './GrayHeader';
 import { useEffect, useState } from 'react';
-import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
+import ConvertMarkdownToPreview from '../../helpers/convertMarkdownToPreview';
 
 interface Props {
   content: string;
