@@ -88,31 +88,24 @@ function convertParagraph(arr: string[]) {
   return plainTextArr;
 }
 
-function convertHyperLink(arr: string[]) {
-  const hyperLinkArr = arr.map((el) => {
-    if (HyperLinkRegex.test(el)) {
-      const [linkStr] = el.match(HyperLinkRegex)!;
-      const [text, url] = linkStr.match(HyperLinkRegex2)!;
-      const linkTemp = `<a href='${url}' target='_blank'>${text}</a>`;
-      const newTemp = el.replace(HyperLinkRegex, linkTemp);
-      return newTemp;
-    }
-    return el;
-  });
-  return hyperLinkArr;
-}
-
 function convertInlineCode(arr: string[]) {
   const inlineCodeArr = arr.map((el) => {
     if (InlineCodeRegex.test(el)) {
-      const [inlineCodeStr] = el.match(InlineCodeRegex)!;
-      const HTMLEntityStr = inlineCodeStr
-        .replaceAll('`', '')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-      const inlineCodeTemp = `<code>${HTMLEntityStr}</code>`;
-      const newTemp = el.replace(InlineCodeRegex, inlineCodeTemp);
-      return newTemp;
+      const matchedArr = el.match(InlineCodeRegex)!;
+      console.log(matchedArr);
+      const newTempArr = matchedArr.map((text) => {
+        const textContent = text
+          .replaceAll('`', '')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
+        const textTemp = `<code>${textContent}</code>`;
+        return textTemp;
+      });
+
+      newTempArr.forEach((temp) => {
+        el = el.replace(/(\`[^`]+\`)/, temp);
+      });
+      return el;
     }
     return el;
   });
@@ -169,33 +162,54 @@ function convertCodeBlock(arr: string[]) {
 function convertBoldText(arr: string[]) {
   const boldTextArr = arr.map((el) => {
     if (BoldTextRegex.test(el)) {
-      const boldTextArr = el.match(BoldTextRegex)!;
-      const newTempArr = boldTextArr.map((text) => {
-        const boldTextContent = text.replaceAll('*', '');
-        const boldTextTemp = `<strong>${boldTextContent}</strong>`;
-        return boldTextTemp;
+      const matchedArr = el.match(BoldTextRegex)!;
+      const newTempArr = matchedArr.map((text) => {
+        const textContent = text.replaceAll('*', '');
+        const textTemp = `<strong>${textContent}</strong>`;
+        return textTemp;
       });
-
-      let newStr = el.slice();
-
       newTempArr.forEach((temp) => {
-        newStr = newStr.replace(BoldTextRegex, temp);
+        el = el.replace(/(\*\*[^*]+\*\*)/, temp);
       });
-      return newStr;
+      return el;
     }
     return el;
   });
   return boldTextArr;
 }
 
+function convertHyperLink(arr: string[]) {
+  const hyperLinkArr = arr.map((el) => {
+    if (HyperLinkRegex.test(el)) {
+      const matchedArr = el.match(HyperLinkRegex)!;
+      const newTempArr = matchedArr.map((text) => {
+        const [textContent, url] = text.match(HyperLinkRegex2)!;
+        const linkTemp = `<a href='${url}' target='_blank'>${textContent}</a>`;
+        return linkTemp;
+      });
+      newTempArr.forEach((temp) => {
+        el = el.replace(/(\[.+?\]\(https:\/\/.+?\))/, temp);
+      });
+      return el;
+    }
+    return el;
+  });
+  return hyperLinkArr;
+}
+
 function convertItalicText(arr: string[]) {
   const italicTextArr = arr.map((el) => {
     if (ItalicTextRegex.test(el)) {
-      const [italicTextStr] = el.match(ItalicTextRegex)!;
-      const italicTextContent = italicTextStr.replaceAll('_', '');
-      const italicTextTemp = `<i>${italicTextContent}</i>`;
-      const newTemp = el.replace(ItalicTextRegex, italicTextTemp);
-      return newTemp;
+      const matchedArr = el.match(ItalicTextRegex)!;
+      const newTempArr = matchedArr.map((text) => {
+        const textContent = text.replaceAll('_', '');
+        const textTemp = `<i>${textContent}</i>`;
+        return textTemp;
+      });
+      newTempArr.forEach((temp) => {
+        el = el.replace(/(\_[^_]+\_)/, temp);
+      });
+      return el;
     }
     return el;
   });
@@ -205,12 +219,16 @@ function convertItalicText(arr: string[]) {
 function convertDeleteText(arr: string[]) {
   const deleteTextArr = arr.map((el) => {
     if (DelTextRegex.test(el)) {
-      const [delTextStr] = el.match(DelTextRegex)!;
-      const delTextContent = delTextStr.replaceAll('~~', '');
-      const delTextTemp = `<del>${delTextContent}</del>`;
-      const newTemp = el.replace(DelTextRegex, delTextTemp);
-      console.log(newTemp);
-      return newTemp;
+      const matchedArr = el.match(DelTextRegex)!;
+      const newTempArr = matchedArr.map((text) => {
+        const textContent = text.replaceAll('~~', '');
+        const textTemp = `<del>${textContent}</del>`;
+        return textTemp;
+      });
+      newTempArr.forEach((temp) => {
+        el = el.replace(/(\~\~[^~]+\~\~)/, temp);
+      });
+      return el;
     }
     return el;
   });
@@ -232,12 +250,14 @@ function ConvertMarkdownToPreview(content: string) {
     convertDeleteText,
     convertParagraph,
   ];
-  const convertedArr = convertArr.reduce(
-    (accumulator: string[], curFunc) =>
-      curFunc(accumulator.length > 0 ? accumulator : textArr),
-    []
-  );
-  return convertedArr.join('');
+  const convertedArr = convertArr
+    .reduce(
+      (accumulator: string[], curFunc) =>
+        curFunc(accumulator.length > 0 ? accumulator : textArr),
+      []
+    )
+    .join('');
+  return convertedArr;
 }
 
 export default ConvertMarkdownToPreview;
