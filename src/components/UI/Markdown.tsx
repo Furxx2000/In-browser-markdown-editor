@@ -41,6 +41,7 @@ function Markdown({
         onChangeMarkdownStatus={onChangeMarkdownStatus}
       />
       <textarea
+        id='editor'
         className={`markdown-content ff-roboto-mono fs-250 text-${
           isDarkMode ? 'gray-3' : 'dark-4'
         } ${isDarkMode ? 'bg-dark-1' : ''}`}
