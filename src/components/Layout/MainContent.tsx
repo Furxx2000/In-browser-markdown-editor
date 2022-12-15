@@ -1,17 +1,12 @@
+import { RefObject, useState } from 'react';
 import Markdown from '../UI/Markdown';
 import Header from './Header';
-import '../../scss/MainContent.scss';
 import Preview from '../UI/Preview';
-import { RefObject, useState } from 'react';
-
-interface File {
-  name: string;
-  content: string;
-  isSelected: boolean;
-}
+import Document from '../../helpers/Interface';
+import '../../scss/MainContent.scss';
 
 interface Props {
-  curFile: File;
+  curFile: Document;
   isMenuOpen: boolean;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
