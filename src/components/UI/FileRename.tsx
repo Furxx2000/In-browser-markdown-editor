@@ -11,7 +11,7 @@ function FileRename({ fileName, inputRef }: Props) {
   const mql = window.matchMedia('(max-width: 480px)');
 
   useEffect(() => {
-    if (inputRef.current !== null) {
+    if (inputRef?.current !== null) {
       inputRef.current.value = fileName;
     }
   }, [fileName]);
