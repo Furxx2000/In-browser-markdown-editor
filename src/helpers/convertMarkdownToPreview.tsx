@@ -1,4 +1,3 @@
-import {} from './months';
 import {
   HeadingRegex,
   OrderedListRegex,
@@ -92,7 +91,6 @@ function convertInlineCode(arr: string[]) {
   const inlineCodeArr = arr.map((el) => {
     if (InlineCodeRegex.test(el)) {
       const matchedArr = el.match(InlineCodeRegex)!;
-      console.log(matchedArr);
       const newTempArr = matchedArr.map((text) => {
         const textContent = text
           .replaceAll('`', '')
@@ -159,25 +157,6 @@ function convertCodeBlock(arr: string[]) {
   return codeBlockArr;
 }
 
-function convertBoldText(arr: string[]) {
-  const boldTextArr = arr.map((el) => {
-    if (BoldTextRegex.test(el)) {
-      const matchedArr = el.match(BoldTextRegex)!;
-      const newTempArr = matchedArr.map((text) => {
-        const textContent = text.replaceAll('*', '');
-        const textTemp = `<strong>${textContent}</strong>`;
-        return textTemp;
-      });
-      newTempArr.forEach((temp) => {
-        el = el.replace(/(\*\*[^*]+\*\*)/, temp);
-      });
-      return el;
-    }
-    return el;
-  });
-  return boldTextArr;
-}
-
 function convertHyperLink(arr: string[]) {
   const hyperLinkArr = arr.map((el) => {
     if (HyperLinkRegex.test(el)) {
@@ -197,42 +176,72 @@ function convertHyperLink(arr: string[]) {
   return hyperLinkArr;
 }
 
-function convertItalicText(arr: string[]) {
-  const italicTextArr = arr.map((el) => {
-    if (ItalicTextRegex.test(el)) {
-      const matchedArr = el.match(ItalicTextRegex)!;
+interface ParseProps {
+  arr: string[];
+  syntax: string;
+  globalRegex: RegExp;
+  nonGlobalRegex: RegExp;
+  template: (content: string) => string;
+}
+
+function parse({
+  arr,
+  nonGlobalRegex,
+  globalRegex,
+  syntax,
+  template,
+}: ParseProps) {
+  const parsedArr = arr.map((el) => {
+    if (globalRegex.test(el)) {
+      const matchedArr = el.match(globalRegex)!;
       const newTempArr = matchedArr.map((text) => {
-        const textContent = text.replaceAll('_', '');
-        const textTemp = `<i>${textContent}</i>`;
+        const textContent = text.replaceAll(syntax, '');
+        const textTemp = template(textContent);
         return textTemp;
       });
       newTempArr.forEach((temp) => {
-        el = el.replace(/(\_[^_]+\_)/, temp);
+        el = el.replace(nonGlobalRegex, temp);
       });
       return el;
     }
     return el;
   });
-  return italicTextArr;
+  return parsedArr;
+}
+
+function convertBoldText(arr: string[]) {
+  const parsedProps = {
+    arr,
+    nonGlobalRegex: /(\*\*[^*]+\*\*)/,
+    globalRegex: BoldTextRegex,
+    syntax: '**',
+    template: (content: string) => `<strong>${content}</strong>`,
+  };
+
+  return parse(parsedProps);
+}
+
+function convertItalicText(arr: string[]) {
+  const parsedProps = {
+    arr,
+    nonGlobalRegex: /(\_[^_]+\_)/,
+    globalRegex: ItalicTextRegex,
+    syntax: '_',
+    template: (content: string) => `<i>${content}</i>`,
+  };
+
+  return parse(parsedProps);
 }
 
 function convertDeleteText(arr: string[]) {
-  const deleteTextArr = arr.map((el) => {
-    if (DelTextRegex.test(el)) {
-      const matchedArr = el.match(DelTextRegex)!;
-      const newTempArr = matchedArr.map((text) => {
-        const textContent = text.replaceAll('~~', '');
-        const textTemp = `<del>${textContent}</del>`;
-        return textTemp;
-      });
-      newTempArr.forEach((temp) => {
-        el = el.replace(/(\~\~[^~]+\~\~)/, temp);
-      });
-      return el;
-    }
-    return el;
-  });
-  return deleteTextArr;
+  const parsedProps = {
+    arr,
+    nonGlobalRegex: /(\~\~[^~]+\~\~)/,
+    globalRegex: DelTextRegex,
+    syntax: '~~',
+    template: (content: string) => `<del>${content}</del>`,
+  };
+  return parse(parsedProps);
 }
 
 function ConvertMarkdownToPreview(content: string) {
