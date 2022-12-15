@@ -1,4 +1,4 @@
-import {} from './months';
+import {} from './Months';
 
 const HeadingRegex = /^\#+/;
 const OrderedListRegex = /^[0-9].\s+/;
