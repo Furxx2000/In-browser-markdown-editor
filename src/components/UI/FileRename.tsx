@@ -25,7 +25,7 @@ function FileRename({ fileName, inputRef }: Props) {
         ) : (
           <label
             htmlFor='document-name'
-            className='fs-200 fw-light text-gray-3'
+            className='fs-200 fw-light text-gray-2'
           >
             Document Name
           </label>
