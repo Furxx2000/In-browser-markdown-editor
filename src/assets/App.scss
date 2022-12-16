@@ -62,12 +62,13 @@ ol {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
+  font-family: var(--ff-roboto);
+  font-size: var(--fs-300);
+  font-weight: var(--fw-regular);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 img {
@@ -212,6 +213,9 @@ code {
 
 .bg-white-1 {
   background-color: var(--clr-white-1);
+}
+.bg-white-2 {
+  background-color: var(--clr-white-2);
 }
 .bg-orange-1 {
   background-color: var(--clr-orange-1);
