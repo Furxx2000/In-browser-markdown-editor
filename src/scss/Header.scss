@@ -18,3 +18,10 @@
   width: 18px;
   height: 20px;
 }
+
+@media only screen and (min-width: 767px) {
+  .header {
+    grid-area: Header;
+    gap: 1.5rem;
+  }
+} ;
