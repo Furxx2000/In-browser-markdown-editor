@@ -1,14 +1,31 @@
 .menu {
   width: 56px;
   height: 56px;
+
+  .icon-menu {
+    width: 23px;
+    height: 14px;
+  }
+
+  .icon-close {
+    width: 18px;
+    height: 18px;
+  }
 }
 
-.menu .icon-menu {
-  width: 23px;
-  height: 14px;
-}
+@media only screen and (min-width: 767px) {
+  .menu {
+    width: 72px;
+    height: 72px;
 
-.menu .icon-close {
-  width: 18px;
-  height: 18px;
+    .icon-menu {
+      width: 30px;
+      height: 18px;
+    }
+
+    .icon-close {
+      width: 22.63px;
+      height: 22.63px;
+    }
+  }
 }

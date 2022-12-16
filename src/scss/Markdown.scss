@@ -1,17 +1,41 @@
-.markdown-content {
-  display: block;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 1rem;
-  padding-top: 58px;
-  border: 0;
-  resize: none;
-  line-height: 24px;
-  white-space: pre-wrap;
-  transition: 0.5s ease;
+.markdown {
+  display: none;
 
-  &:focus {
-    outline: none;
+  &.open {
+    display: block;
+  }
+
+  .markdown-content {
+    display: block;
+    width: 100%;
+    height: calc(100vh - 98px);
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background-color: transparent;
+    resize: none;
+    line-height: 24px;
+    white-space: pre-wrap;
+    transition: 0.5s ease;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .markdown {
+    grid-area: Markdown;
+    border-right: 1px solid var(--clr-gray-4);
+
+    &.dark-mode {
+      border-color: var(--clr-gray-1);
+    }
+
+    .markdown-content {
+      padding-top: 1rem;
+      height: calc(100vh - 114px);
+    }
   }
 }
