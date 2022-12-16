@@ -1,6 +1,7 @@
 import { RefObject, useState } from 'react';
 import Markdown from '../UI/Markdown';
 import Header from './Header';
+import GrayHeader from '../UI/GrayHeader';
 import Preview from '../UI/Preview';
 import Document from '../../helpers/Interface';
 import '../../scss/MainContent.scss';
@@ -28,14 +29,24 @@ function MainContent({
   saveChangedName,
   changeMarkdownContent,
 }: Props) {
-  const [isMarkdown, setIsMarkdown] = useState(true);
+  const [isMarkdownOpen, setIsMarkdown] = useState(true);
+  const [isOnePagePreviewOpen, setOnePagePreview] = useState(false);
+  const mql = window.matchMedia('(max-width: 480px)');
 
   function changeMarkdownStatus() {
-    setIsMarkdown(!isMarkdown);
+    setIsMarkdown(!isMarkdownOpen);
+  }
+
+  function changeOnePagePreviewStatus() {
+    setOnePagePreview(!isOnePagePreviewOpen);
   }
 
   return (
-    <main className={`main-content ${isMenuOpen ? 'is-active' : ''}`}>
+    <main
+      className={`main-content ${isMenuOpen ? 'is-active' : ''} ${
+        isDarkMode ? 'bg-dark-1' : ''
+      }`}
+    >
       <Header
         name={curFile.name}
         isSelected={curFile.isSelected}
@@ -46,19 +57,61 @@ function MainContent({
         onChangeDialogStatus={onChangeDialogStatus}
         saveChangedName={saveChangedName}
       />
-      {isMarkdown ? (
-        <Markdown
-          content={curFile.content}
+      {isMarkdownOpen ? (
+        <GrayHeader
+          text='MARKDOWN'
+          icon='icon-show-preview'
           isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
-          onChangeMarkdownContent={changeMarkdownContent}
         />
       ) : (
-        <Preview
-          content={curFile.content}
+        <GrayHeader
+          text='PREVIEW'
+          icon='icon-hide-preview'
           isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
         />
+      )}
+      {!mql.matches ? (
+        <GrayHeader
+          text='PREVIEW'
+          icon='icon-show-preview'
+          isDarkMode={isDarkMode}
+          changeOnePagePreviewStatus={changeOnePagePreviewStatus}
+        />
+      ) : (
+        ''
+      )}
+      <Markdown
+        content={curFile.content}
+        isDarkMode={isDarkMode}
+        isMarkdownOpen={isMarkdownOpen}
+        onChangeMarkdownContent={changeMarkdownContent}
+      />
+      <Preview
+        content={curFile.content}
+        isDarkMode={isDarkMode}
+        isMarkdownOpen={isMarkdownOpen}
+      />
+
+      {isOnePagePreviewOpen ? (
+        <div
+          className={`one-page-preview ${
+            isDarkMode ? 'bg-dark-1' : 'bg-white-2'
+          }`}
+        >
+          <GrayHeader
+            text='PREVIEW'
+            icon='icon-hide-preview'
+            isDarkMode={isDarkMode}
+            changeOnePagePreviewStatus={changeOnePagePreviewStatus}
+          />
+          <div className='one-page-preview-content'>
+            <Preview content={curFile.content} isDarkMode={isDarkMode} />
+          </div>
+        </div>
+      ) : (
+        ''
       )}
     </main>
   );
