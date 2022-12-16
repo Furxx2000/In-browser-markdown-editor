@@ -9,7 +9,6 @@ import useDarkMode from '../../Hooks/useDarkMode';
 function MarkdownEditor() {
   const {
     files,
-    curFile,
     inputRef,
     deleteCurFile,
     changeCurFile,
@@ -37,7 +36,7 @@ function MarkdownEditor() {
         toggleDarkMode={toggleDarkMode}
       />
       <MainContent
-        curFile={curFile}
+        curFile={files.filter((file) => file.isSelected)[0]}
         isMenuOpen={menuStatus}
         fileQuantity={files.length}
         inputRef={inputRef}
@@ -48,8 +47,8 @@ function MarkdownEditor() {
         changeMarkdownContent={changeMarkdownContent}
       />
       <Dialog
-        name={curFile.name}
-        timeStamp={curFile.timeStamp}
+        name={files.filter((file) => file.isSelected)[0].name}
+        timeStamp={files.filter((file) => file.isSelected)[0].timeStamp}
         isOpenDialog={isOpenDialog}
         isDarkMode={isDarkMode}
         changeDialogStatus={changeDialogStatus}
