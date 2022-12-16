@@ -15,7 +15,7 @@ function SaveChangeBtn({ saveChangedName }: Props) {
       onClick={saveChangedName}
     >
       <SvgIcon name='icon-save' color='white' />
-      {mql.matches ? '' : <p>Save Change</p>}
+      {mql.matches ? '' : <p>Save Changes</p>}
     </button>
   );
 }
