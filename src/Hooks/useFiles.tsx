@@ -8,14 +8,15 @@ import {
 
 function useFiles() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [files, setNewFiles] = useState<Document[]>([]);
-  const [curFile, setCurFile] = useState<Document>({
-    name: '',
-    content: '',
-    createdAt: '',
-    timeStamp: '',
-    isSelected: true,
-  });
+  const [files, setNewFiles] = useState<Document[]>([
+    {
+      name: '',
+      content: '',
+      createdAt: '',
+      timeStamp: '',
+      isSelected: true,
+    },
+  ]);
 
   const fetchData = async () => {
     const res = await fetch('../../../data/data.json');
@@ -27,7 +28,6 @@ function useFiles() {
       };
     });
     setNewFiles(rawData);
-    setCurFile(rawData.find((data: Document) => data.isSelected));
   };
 
   useEffect(() => {
@@ -41,9 +41,7 @@ function useFiles() {
         isSelected: timeStamp === file.timeStamp,
       };
     });
-    const targetFile = newFiles.find((file) => file.isSelected) || curFile;
     setNewFiles(newFiles);
-    setCurFile(targetFile);
   }
 
   function deleteCurFile(timeStamp: string) {
@@ -57,7 +55,6 @@ function useFiles() {
         };
       });
     setNewFiles(newFiles);
-    setCurFile(newFiles[0]);
   }
 
   function AddNewDocument() {
@@ -69,23 +66,38 @@ function useFiles() {
 
   function saveChangedName() {
     if (inputRef.current !== null) {
-      if (inputRef.current.value === curFile.name) return;
+      const curFile = files.find((file) => file.isSelected);
+      if (inputRef.current.value === curFile?.name) return;
 
       const newName = inputRef.current?.value;
-      const newArr = [...files];
-      const targetFile = newArr.find((file) => file.isSelected);
-      if (targetFile) targetFile.name = newName;
-      setCurFile({ ...curFile, name: newName });
+      const newArr = files.map((file) => {
+        if (file.isSelected) {
+          return {
+            ...file,
+            name: newName,
+          };
+        }
+        return file;
+      });
+      setNewFiles(newArr);
     }
   }
 
   function changeMarkdownContent(markdownContent: string) {
-    setCurFile({ ...curFile, content: markdownContent });
+    const newArr = files.map((file) => {
+      if (file.isSelected) {
+        return {
+          ...file,
+          content: markdownContent,
+        };
+      }
+      return file;
+    });
+    setNewFiles(newArr);
   }
 
   return {
     files,
-    curFile,
     inputRef,
     deleteCurFile,
     changeCurFile,
