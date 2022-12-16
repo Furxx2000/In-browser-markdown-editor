@@ -1,16 +1,16 @@
 import '../../scss/Preview.scss';
-import GrayHeader from './GrayHeader';
 import { useEffect, useState } from 'react';
 import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
 
 interface Props {
   content: string;
   isDarkMode: boolean;
-  onChangeMarkdownStatus: () => void;
+  isMarkdownOpen?: boolean;
 }
 
-function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
+function Preview({ content, isDarkMode, isMarkdownOpen }: Props) {
   const [htmlContent, setHtmlContent] = useState('');
+  const mql = window.matchMedia('(max-width: 480px)');
 
   useEffect(() => {
     const temp = ConvertMarkdownToPreview(content);
@@ -18,20 +18,14 @@ function Preview({ content, isDarkMode, onChangeMarkdownStatus }: Props) {
   }, [content]);
 
   return (
-    <section className='preview'>
-      <GrayHeader
-        icon='icon-hide-preview'
-        text='PREVIEW'
-        isDarkMode={isDarkMode}
-        onChangeMarkdownStatus={onChangeMarkdownStatus}
-      />
+    <section
+      className={`preview ${isMarkdownOpen && mql.matches ? '' : 'open'}`}
+    >
       <div
         id='preview'
         className={`preview-content grid ff-roboto-slab text-gray-${
           isDarkMode ? '3' : '2'
-        } fs-250  ${isDarkMode ? 'bg-dark-1' : ''} ${
-          isDarkMode ? 'dark-mode' : ''
-        }`}
+        } fs-250 ${isDarkMode ? 'dark-mode' : ''}`}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       ></div>
     </section>
