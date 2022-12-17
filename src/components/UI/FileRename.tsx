@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
-import '../../scss/FileRename.scss';
 import SvgIcon from './SvgIcon';
+import '../../scss/FileRename.scss';
 
 interface Props {
   fileName: string;
