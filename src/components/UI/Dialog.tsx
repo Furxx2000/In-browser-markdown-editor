@@ -20,21 +20,15 @@ function Dialog({
   return (
     <>
       <div
-        className={`backdrop ${isDarkMode ? 'bg-gray-2' : 'bg-dark-1'} ${
-          isOpenDialog ? 'is-active' : ''
-        }`}
+        className={`backdrop  ${isOpenDialog ? 'is-active' : ''}`}
         onClick={changeDialogStatus}
       ></div>
       <div
         role='dialog'
         aria-label='Delete this document?'
-        className={`dialog ${
-          isDarkMode ? 'bg-dark-2' : 'bg-white-1'
-        } rounded flex ${isOpenDialog ? 'is-active' : ''}`}
+        className={`dialog rounded flex ${isOpenDialog ? 'is-active' : ''}`}
       >
-        <h4 className={`dialog-title ${isDarkMode ? 'text-white' : ''}`}>
-          Delete this document?
-        </h4>
+        <h4 className='dialog-title'>Delete this document?</h4>
         <p
           className={`dialog-description ff-roboto-slab fs-250 text-gray-${
             isDarkMode ? '3' : '2'
