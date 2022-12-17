@@ -1,3 +1,5 @@
+@import './@mixins/@mixins.scss';
+
 .main-content {
   position: relative;
   top: 0;
@@ -8,6 +10,19 @@
   padding-top: 56px;
   transition: left 0.4s ease, background-color 0.5s ease;
 
+  @include tablet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'Header Header'
+      'Markdown Preview';
+    padding-top: 72px;
+  }
+
+  @include darkMode {
+    background-color: var(--clr-dark-1);
+  }
+
   &.is-active {
     left: 250px;
   }
@@ -17,21 +32,15 @@
     grid-area: 1 / span 2;
     width: 100%;
     height: 100%;
+    background-color: var(--clr-white-2);
     transition: 0.5s ease;
+
+    @include darkMode {
+      background-color: var(--clr-dark-1);
+    }
 
     .one-page-preview-content {
       padding: 6px 28px;
     }
-  }
-}
-
-@media only screen and (min-width: 767px) {
-  .main-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'Header Header'
-      'Markdown Preview';
-    padding-top: 72px;
   }
 }

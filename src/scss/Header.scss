@@ -1,3 +1,5 @@
+@import './@mixins/@mixins.scss';
+
 .header {
   position: fixed;
   top: 0;
@@ -8,6 +10,10 @@
   padding-right: 0.5rem;
   z-index: 100;
   transition: left 0.4s ease;
+  @include tablet {
+    grid-area: Header;
+    gap: 1.5rem;
+  }
 
   &.is-active {
     left: 250px;
@@ -18,10 +24,3 @@
   width: 18px;
   height: 20px;
 }
-
-@media only screen and (min-width: 767px) {
-  .header {
-    grid-area: Header;
-    gap: 1.5rem;
-  }
-} ;

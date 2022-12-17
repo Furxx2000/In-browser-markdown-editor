@@ -1,3 +1,5 @@
+@import './@mixins/@mixins.scss';
+
 .mode-switcher {
   align-items: center;
 
@@ -22,10 +24,9 @@
       border-radius: 50%;
       translate: 200% 0;
       transition: 0.35s ease;
-    }
-
-    &.dark-mode::before {
-      translate: 0 0;
+      @include darkMode {
+        translate: 0 0;
+      }
     }
   }
 }

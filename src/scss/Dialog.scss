@@ -1,3 +1,5 @@
+@import './@mixins/@mixins.scss';
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -5,9 +7,13 @@
   right: 0;
   bottom: 0;
   opacity: 0;
+  background-color: var(--clr-dark-1);
   z-index: 100;
   visibility: hidden;
   transition: 0.4s ease;
+  @include darkMode {
+    background-color: var(--clr-gray-2);
+  }
 
   &.is-active {
     opacity: 0.5;
@@ -24,11 +30,15 @@
   padding: 1.5rem;
   top: 50%;
   left: 50%;
+  background-color: var(--clr-white-2);
   opacity: 0;
   z-index: 110;
   translate: -50% -30%;
   transition: 0.4s ease;
   visibility: hidden;
+  @include darkMode {
+    background-color: var(--clr-dark-2);
+  }
 
   &-title {
     line-height: 26px;
