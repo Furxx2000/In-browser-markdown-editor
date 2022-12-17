@@ -19,6 +19,7 @@ function MarkdownEditor() {
   const { isOpenDialog, changeDialogStatus } = useDialog();
   const { menuStatus, changeMenuStatus } = useMenu();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const curFile = files.filter((file) => file.isSelected)[0];
 
   function deleteCurDocument(timeStamp: string) {
     deleteCurFile(timeStamp);
@@ -36,7 +37,7 @@ function MarkdownEditor() {
         toggleDarkMode={toggleDarkMode}
       />
       <MainContent
-        curFile={files.filter((file) => file.isSelected)[0]}
+        curFile={curFile}
         isMenuOpen={menuStatus}
         fileQuantity={files.length}
         inputRef={inputRef}
@@ -47,8 +48,8 @@ function MarkdownEditor() {
         changeMarkdownContent={changeMarkdownContent}
       />
       <Dialog
-        name={files.filter((file) => file.isSelected)[0].name}
-        timeStamp={files.filter((file) => file.isSelected)[0].timeStamp}
+        name={curFile.name}
+        timeStamp={curFile.timeStamp}
         isOpenDialog={isOpenDialog}
         isDarkMode={isDarkMode}
         changeDialogStatus={changeDialogStatus}
