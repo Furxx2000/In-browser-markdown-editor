@@ -1,19 +1,12 @@
 import NewDocumentBtn from '../UI/Buttons/NewDocumentBtn';
 import SvgIcon from '../UI/SvgIcon';
-import '../../scss/SideBar.scss';
 import ModeSwitcher from '../UI/ModeSwitcher';
 import SideBarList from '../UI/SideBarList';
-
-interface File {
-  name: string;
-  createdAt: string;
-  timeStamp: string;
-  content: string;
-  isSelected: boolean;
-}
+import Document from '../../helpers/Interface';
+import '../../scss/SideBar.scss';
 
 interface Props {
-  files: File[];
+  files: Document[];
   isMenuOpen: boolean;
   isDarkMode: boolean;
   changeCurFile: (fileName: string) => void;
@@ -38,7 +31,7 @@ function SideBar({
         </p>
         <NewDocumentBtn addNewDocument={addNewDocument} />
         <ul>
-          {files.map((file: File) => (
+          {files.map((file: Document) => (
             <li
               key={file.timeStamp}
               onClick={() => changeCurFile(file.timeStamp)}
