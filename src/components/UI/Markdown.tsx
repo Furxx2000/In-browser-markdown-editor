@@ -3,19 +3,12 @@ import '../../scss/Markdown.scss';
 
 interface Props {
   content: string;
-  isDarkMode: boolean;
   isMarkdownOpen: boolean;
   onChangeMarkdownContent: (value: string) => void;
 }
 
-function Markdown({
-  content,
-  isDarkMode,
-  isMarkdownOpen,
-  onChangeMarkdownContent,
-}: Props) {
+function Markdown({ content, isMarkdownOpen, onChangeMarkdownContent }: Props) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const mql = window.matchMedia('(max-width: 480px)');
 
   function getIndentWhenPressingTab(
     e: React.KeyboardEvent<HTMLTextAreaElement>
@@ -33,16 +26,10 @@ function Markdown({
   }
 
   return (
-    <section
-      className={`markdown ${isMarkdownOpen ? 'open' : ''} ${
-        isDarkMode ? 'dark-mode' : ''
-      }`}
-    >
+    <section className={`markdown ${isMarkdownOpen ? 'open' : ''} `}>
       <textarea
         id='editor'
-        className={`markdown-content ff-roboto-mono fs-250 text-${
-          isDarkMode ? 'gray-3' : 'dark-4'
-        }`}
+        className='markdown-content ff-roboto-mono fs-250'
         ref={textAreaRef}
         value={content}
         onChange={(e) => onChangeMarkdownContent(e.target.value)}
