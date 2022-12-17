@@ -6,8 +6,6 @@ interface Props {
 }
 
 function SaveChangeBtn({ saveChangedName }: Props) {
-  const mql = window.matchMedia('(max-width: 480px)');
-
   return (
     <button
       type='button'
@@ -15,7 +13,7 @@ function SaveChangeBtn({ saveChangedName }: Props) {
       onClick={saveChangedName}
     >
       <SvgIcon name='icon-save' color='white' />
-      {mql.matches ? '' : <p>Save Changes</p>}
+      <p className='save-change--text'>Save Changes</p>
     </button>
   );
 }
