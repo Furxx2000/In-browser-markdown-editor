@@ -1,14 +1,13 @@
-import '../../scss/Preview.scss';
 import { useEffect, useState } from 'react';
 import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
+import '../../scss/Preview.scss';
 
 interface Props {
   content: string;
-  isDarkMode: boolean;
   isMarkdownOpen?: boolean;
 }
 
-function Preview({ content, isDarkMode, isMarkdownOpen }: Props) {
+function Preview({ content, isMarkdownOpen }: Props) {
   const [htmlContent, setHtmlContent] = useState('');
   const mql = window.matchMedia('(max-width: 480px)');
 
@@ -23,9 +22,7 @@ function Preview({ content, isDarkMode, isMarkdownOpen }: Props) {
     >
       <div
         id='preview'
-        className={`preview-content grid ff-roboto-slab text-gray-${
-          isDarkMode ? '3' : '2'
-        } fs-250 ${isDarkMode ? 'dark-mode' : ''}`}
+        className='preview-content grid ff-roboto-slab fs-250'
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       ></div>
     </section>
