@@ -1,5 +1,5 @@
-import '../../scss/GrayHeader.scss';
 import SvgIcon from './SvgIcon';
+import '../../scss/GrayHeader.scss';
 
 interface Props {
   text: string;
@@ -22,9 +22,7 @@ function GrayHeader({
 
   return (
     <div
-      className={`markdown-header fs-250 fw-medium letter-spacing-1 text-gray-${
-        isDarkMode ? '3' : '2'
-      } ${isDarkMode ? 'bg-dark-2 dark-mode' : 'bg-white-1'} ${
+      className={`markdown-header fs-250 fw-medium letter-spacing-1 ${
         isTabletMarkdown ? 'b-right-gray' : ''
       } flex`}
     >
