@@ -1,11 +1,11 @@
-import '../../scss/Header.scss';
 import Menu from '../UI/Menu';
 import FileRename from '../UI/FileRename';
 import SvgIcon from '../UI/SvgIcon';
 import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
 import { RefObject } from 'react';
+import '../../scss/Header.scss';
 
-interface File {
+interface Props {
   name: string;
   isSelected: boolean;
   isMenuOpen: boolean;
@@ -24,7 +24,7 @@ function Header({
   onChangeMenuStatus,
   onChangeDialogStatus,
   saveChangedName,
-}: File) {
+}: Props) {
   const deleteColor = '#7c8187';
   return (
     <>
