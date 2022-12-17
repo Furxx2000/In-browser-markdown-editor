@@ -71,6 +71,33 @@ body {
   overflow: hidden;
 }
 
+body.dark-mode {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: var(--clr-white-2);
+  }
+
+  a {
+    color: var(--clr-white-1);
+  }
+
+  .block-quote {
+    color: var(--clr-white-1);
+    background-color: var(--clr-dark-3);
+  }
+
+  code {
+    color: var(--clr-white-1);
+  }
+
+  pre {
+    background-color: var(--clr-dark-3);
+  }
+}
+
 img {
   max-width: 100%;
 }
