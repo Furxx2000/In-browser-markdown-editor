@@ -42,11 +42,7 @@ function MainContent({
   }
 
   return (
-    <main
-      className={`main-content ${isMenuOpen ? 'is-active' : ''} ${
-        isDarkMode ? 'bg-dark-1' : ''
-      }`}
-    >
+    <main className={`main-content ${isMenuOpen ? 'is-active' : ''}`}>
       <Header
         name={curFile.name}
         isSelected={curFile.isSelected}
@@ -84,22 +80,13 @@ function MainContent({
       )}
       <Markdown
         content={curFile.content}
-        isDarkMode={isDarkMode}
         isMarkdownOpen={isMarkdownOpen}
         onChangeMarkdownContent={changeMarkdownContent}
       />
-      <Preview
-        content={curFile.content}
-        isDarkMode={isDarkMode}
-        isMarkdownOpen={isMarkdownOpen}
-      />
+      <Preview content={curFile.content} isMarkdownOpen={isMarkdownOpen} />
 
       {isOnePagePreviewOpen ? (
-        <div
-          className={`one-page-preview ${
-            isDarkMode ? 'bg-dark-1' : 'bg-white-2'
-          }`}
-        >
+        <div className='one-page-preview'>
           <GrayHeader
             text='PREVIEW'
             icon='icon-hide-preview'
@@ -107,7 +94,7 @@ function MainContent({
             changeOnePagePreviewStatus={changeOnePagePreviewStatus}
           />
           <div className='one-page-preview-content'>
-            <Preview content={curFile.content} isDarkMode={isDarkMode} />
+            <Preview content={curFile.content} />
           </div>
         </div>
       ) : (
