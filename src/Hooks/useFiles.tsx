@@ -5,6 +5,7 @@ import {
   LastDocumentTimeStamp,
   CreateNewDocument,
 } from '../helpers/AddNewDocument';
+import { getUserFiles, setUserFiles } from '../helpers/UserFiles';
 
 function useFiles() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -31,7 +32,13 @@ function useFiles() {
   };
 
   useEffect(() => {
-    fetchData();
+    const userFilesStr = getUserFiles();
+
+    if (userFilesStr) {
+      setNewFiles(JSON.parse(userFilesStr));
+    } else {
+      fetchData();
+    }
   }, []);
 
   function changeCurFile(timeStamp: string) {
@@ -55,6 +62,7 @@ function useFiles() {
         };
       });
     setNewFiles(newFiles);
+    setUserFiles(newFiles);
   }
 
   function AddNewDocument() {
@@ -64,11 +72,8 @@ function useFiles() {
     setNewFiles([newDoc, ...files]);
   }
 
-  function saveChangedName() {
+  function saveChange() {
     if (inputRef.current !== null) {
-      const curFile = files.find((file) => file.isSelected);
-      if (inputRef.current.value === curFile?.name) return;
-
       const newName = inputRef.current?.value;
       const newArr = files.map((file) => {
         if (file.isSelected) {
@@ -80,6 +85,7 @@ function useFiles() {
         return file;
       });
       setNewFiles(newArr);
+      setUserFiles(newArr);
     }
   }
 
@@ -102,7 +108,7 @@ function useFiles() {
     deleteCurFile,
     changeCurFile,
     AddNewDocument,
-    saveChangedName,
+    saveChange,
     changeMarkdownContent,
   };
 }
