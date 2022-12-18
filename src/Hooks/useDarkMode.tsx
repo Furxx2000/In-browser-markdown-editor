@@ -12,7 +12,7 @@ function useDarkMode() {
       setMode(darkMode);
       document.body.classList.add('dark-mode');
     }
-  });
+  }, []);
 
   function toggleDarkMode() {
     if (isDarkMode) setTheme('light-mode');
