@@ -28,4 +28,10 @@
       height: 22.63px;
     }
   }
+
+  @include desktop {
+    &:hover {
+      background-color: var(--clr-orange-1);
+    }
+  }
 }
