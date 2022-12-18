@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto+Slab:wght@300;400;700&family=Roboto:wght@300;400;500&display=swap');
+@import '../scss/@mixins/@mixins.scss';
 
 :root {
   // color
@@ -95,6 +96,20 @@ body.dark-mode {
 
   pre {
     background-color: var(--clr-dark-3);
+  }
+
+  @include desktop {
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--clr-dark-3);
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: var(--clr-dark-2);
+    }
   }
 }
 
