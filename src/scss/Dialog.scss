@@ -11,6 +11,7 @@
   z-index: 100;
   visibility: hidden;
   transition: 0.4s ease;
+
   @include darkMode {
     background-color: var(--clr-gray-2);
   }
@@ -25,7 +26,7 @@
   flex-direction: column;
   gap: 1rem;
   position: fixed;
-  min-width: 343px;
+  width: 343px;
   min-height: 218px;
   padding: 1.5rem;
   top: 50%;
@@ -36,6 +37,7 @@
   translate: -50% -30%;
   transition: 0.4s ease;
   visibility: hidden;
+
   @include darkMode {
     background-color: var(--clr-dark-2);
   }
