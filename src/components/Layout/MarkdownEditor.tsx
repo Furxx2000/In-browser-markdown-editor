@@ -1,10 +1,12 @@
 import SideBar from './SideBar';
 import MainContent from './MainContent';
 import Dialog from '../UI/Dialog';
+import Toast from '../UI/Toast';
 import useFiles from '../../Hooks/useFiles';
 import useDialog from '../../Hooks/useDialog';
 import useMenu from '../../Hooks/useMenu';
 import useDarkMode from '../../Hooks/useDarkMode';
+import useToast from '../../Hooks/useToast';
 
 function MarkdownEditor() {
   const {
@@ -19,11 +21,17 @@ function MarkdownEditor() {
   const { isOpenDialog, changeDialogStatus } = useDialog();
   const { menuStatus, changeMenuStatus } = useMenu();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { toast, changeToastStatus } = useToast();
   const curFile = files.filter((file) => file.isSelected)[0];
 
   function deleteCurDocument(timeStamp: string) {
     deleteCurFile(timeStamp);
     changeDialogStatus();
+  }
+
+  function saveCurChange() {
+    saveChange();
+    changeToastStatus();
   }
 
   return (
@@ -44,7 +52,7 @@ function MarkdownEditor() {
         isDarkMode={isDarkMode}
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
-        saveChange={saveChange}
+        saveChange={saveCurChange}
         changeMarkdownContent={changeMarkdownContent}
       />
       <Dialog
@@ -55,6 +63,7 @@ function MarkdownEditor() {
         changeDialogStatus={changeDialogStatus}
         deleteCurFile={deleteCurDocument}
       />
+      <Toast isToastOpen={toast} />
     </div>
   );
 }
