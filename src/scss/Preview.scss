@@ -3,7 +3,7 @@
 .preview {
   display: none;
   height: calc(100vh - 98px);
-  overflow: scroll;
+  overflow-y: auto;
 
   &.open {
     display: block;
@@ -12,8 +12,8 @@
   &-content {
     width: 100%;
     --gap: 22px;
-    margin: 0;
-    padding: 1rem 20px;
+    margin: 0 auto;
+    padding: 1rem 20px 63px 1rem;
     color: var(--clr-gray-2);
     line-height: 24px;
     transition: 0.5s ease;
