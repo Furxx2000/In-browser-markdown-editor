@@ -10,6 +10,7 @@
   padding-right: 0.5rem;
   z-index: 100;
   transition: left 0.4s ease;
+
   @include tablet {
     grid-area: Header;
     gap: 1.5rem;
@@ -18,9 +19,37 @@
   &.is-active {
     left: 250px;
   }
-}
 
-.icon-delete {
-  width: 18px;
-  height: 20px;
+  .icon-logo {
+    display: none;
+    width: 131px;
+    height: 18px;
+
+    @include desktop {
+      display: block;
+    }
+  }
+
+  .divider {
+    display: none;
+    width: 1px;
+    height: 40px;
+    background-color: var(--clr-gray-1);
+
+    @include desktop {
+      display: block;
+    }
+  }
+
+  .icon-delete {
+    width: 18px;
+    height: 20px;
+    cursor: pointer;
+
+    @include desktop {
+      &:hover use {
+        fill: var(--clr-orange-1);
+      }
+    }
+  }
 }

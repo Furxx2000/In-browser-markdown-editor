@@ -1,8 +1,22 @@
+@import './@mixins/@mixins.scss';
+
 .file-rename {
   gap: 1rem;
   align-items: center;
   padding-block: 16px;
   margin-right: auto;
+
+  @include tablet {
+    min-width: 375px;
+  }
+
+  @include desktop {
+    min-width: 44%;
+  }
+
+  .document-name {
+    flex-grow: 1;
+  }
 
   label {
     display: block;
@@ -10,6 +24,7 @@
   }
 
   input {
+    width: 100%;
     outline: none;
     padding: 0;
     border: none;
