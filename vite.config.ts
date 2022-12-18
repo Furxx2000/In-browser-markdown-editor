@@ -5,6 +5,7 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/In-browser-markdown-editor/',
   plugins: [
     react(),
     createSvgIconsPlugin({
