@@ -13,7 +13,7 @@ interface Props {
   inputRef: RefObject<HTMLInputElement>;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
-  saveChangedName: () => void;
+  saveChange: () => void;
 }
 
 function Header({
@@ -23,7 +23,7 @@ function Header({
   inputRef,
   onChangeMenuStatus,
   onChangeDialogStatus,
-  saveChangedName,
+  saveChange,
 }: Props) {
   return (
     <>
@@ -42,7 +42,7 @@ function Header({
             onClick={onChangeDialogStatus}
           />
         )}
-        <SaveChangeBtn saveChangedName={saveChangedName} />
+        <SaveChangeBtn saveChange={saveChange} />
       </header>
     </>
   );

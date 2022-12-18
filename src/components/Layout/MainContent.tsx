@@ -14,7 +14,7 @@ interface Props {
   isDarkMode: boolean;
   onChangeMenuStatus: () => void;
   onChangeDialogStatus: () => void;
-  saveChangedName: () => void;
+  saveChange: () => void;
   changeMarkdownContent: (value: string) => void;
 }
 
@@ -26,7 +26,7 @@ function MainContent({
   isDarkMode,
   onChangeMenuStatus,
   onChangeDialogStatus,
-  saveChangedName,
+  saveChange,
   changeMarkdownContent,
 }: Props) {
   const [isMarkdownOpen, setIsMarkdown] = useState(true);
@@ -51,7 +51,7 @@ function MainContent({
         inputRef={inputRef}
         onChangeMenuStatus={onChangeMenuStatus}
         onChangeDialogStatus={onChangeDialogStatus}
-        saveChangedName={saveChangedName}
+        saveChange={saveChange}
       />
       {isMarkdownOpen ? (
         <GrayHeader

@@ -13,7 +13,7 @@ function MarkdownEditor() {
     deleteCurFile,
     changeCurFile,
     AddNewDocument,
-    saveChangedName,
+    saveChange,
     changeMarkdownContent,
   } = useFiles();
   const { isOpenDialog, changeDialogStatus } = useDialog();
@@ -44,7 +44,7 @@ function MarkdownEditor() {
         isDarkMode={isDarkMode}
         onChangeMenuStatus={changeMenuStatus}
         onChangeDialogStatus={changeDialogStatus}
-        saveChangedName={saveChangedName}
+        saveChange={saveChange}
         changeMarkdownContent={changeMarkdownContent}
       />
       <Dialog
