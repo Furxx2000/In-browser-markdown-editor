@@ -1,8 +1,8 @@
 import { RefObject, useState } from 'react';
-import Markdown from '../UI/Markdown';
+import Markdown from '../Markdown/Markdown';
 import Header from './Header';
 import GrayHeader from '../UI/GrayHeader';
-import Preview from '../UI/Preview';
+import Preview from '../Preview/Preview';
 import Document from '../../helpers/Interface';
 import '../../scss/MainContent.scss';
 
