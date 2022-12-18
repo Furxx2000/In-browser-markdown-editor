@@ -28,6 +28,8 @@
     line-height: 24px;
     white-space: pre-wrap;
     transition: 0.5s ease;
+    cursor: auto;
+
     @include tablet {
       padding-top: 1rem;
       height: calc(100vh - 114px);
