@@ -25,19 +25,20 @@ function Header({
   onChangeDialogStatus,
   saveChangedName,
 }: Props) {
-  const deleteColor = '#7c8187';
   return (
     <>
       <header
         className={`header bg-dark-3 flex ${isMenuOpen ? 'is-active' : ''}`}
       >
         <Menu isMenuOpen={isMenuOpen} onChangeMenuStatus={onChangeMenuStatus} />
+        <SvgIcon className='icon-logo' name='logo' color='white' />
+        <div className='divider'></div>
         <FileRename fileName={name} inputRef={inputRef} />
         {fileQuantity > 1 && (
           <SvgIcon
             className='icon-delete'
             name='icon-delete'
-            color={deleteColor}
+            color='#7c8187'
             onClick={onChangeDialogStatus}
           />
         )}
