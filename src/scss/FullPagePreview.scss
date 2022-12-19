@@ -1,1 +1,25 @@
 @import './@mixins/@mixins.scss';
+
+.one-page-preview {
+  position: fixed;
+  grid-area: 1 / span 2;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-white-2);
+  transition: 0.5s ease;
+
+  &-content .preview-content {
+    padding: 22px 48px 63px 48px;
+  }
+
+  @include desktop {
+    .preview-content {
+      max-width: 672px;
+      padding: 24px 0 63px 0;
+    }
+  }
+
+  @include darkMode {
+    background-color: var(--clr-dark-1);
+  }
+}
