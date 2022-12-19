@@ -20,7 +20,11 @@ function useFiles() {
   ]);
 
   const fetchData = async () => {
-    const res = await fetch('../../../data/data.json');
+    const url =
+      location.href === 'http://127.0.0.1:5173/In-browser-markdown-editor/'
+        ? '../../../data/data.json'
+        : 'https://furxx2000.github.io/In-browser-markdown-editor/data/data.json';
+    const res = await fetch(url);
     const data = await res.json();
     const rawData = data.map((file: {}, index: number) => {
       return {
