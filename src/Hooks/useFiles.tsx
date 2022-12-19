@@ -35,11 +35,8 @@ function useFiles() {
   useEffect(() => {
     const userFilesStr = getUserFiles();
 
-    if (userFilesStr) {
-      setNewFiles(JSON.parse(userFilesStr));
-    } else {
-      fetchData();
-    }
+    if (userFilesStr) setNewFiles(JSON.parse(userFilesStr));
+    else fetchData();
   }, []);
 
   function changeCurFile(timeStamp: string) {
