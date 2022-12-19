@@ -3,6 +3,7 @@ import Markdown from '../Markdown/Markdown';
 import Header from './Header';
 import GrayHeader from '../UI/GrayHeader';
 import Preview from '../Preview/Preview';
+import FullPagePreview from '../Preview/FullPagePreview';
 import Document from '../../helpers/Interface';
 import '../../scss/MainContent.scss';
 
@@ -85,20 +86,12 @@ function MainContent({
       />
       <Preview content={curFile.content} isMarkdownOpen={isMarkdownOpen} />
 
-      {isOnePagePreviewOpen ? (
-        <div className='one-page-preview'>
-          <GrayHeader
-            text='PREVIEW'
-            icon='icon-hide-preview'
-            isDarkMode={isDarkMode}
-            changeOnePagePreviewStatus={changeOnePagePreviewStatus}
-          />
-          <div className='one-page-preview-content'>
-            <Preview content={curFile.content} />
-          </div>
-        </div>
-      ) : (
-        ''
+      {isOnePagePreviewOpen && (
+        <FullPagePreview
+          content={curFile.content}
+          isDarkMode={isDarkMode}
+          changeOnePagePreviewStatus={changeOnePagePreviewStatus}
+        />
       )}
     </main>
   );
