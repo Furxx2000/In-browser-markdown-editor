@@ -56,7 +56,8 @@ Users should be able to:
 
 It's my second time to use react + vite to develope application, these are what I learned:
 
-- Custom Hook - At first I write all useState code in "MarkdownEditor" this component, the file becomes really big and long,
+- Custom Hook -
+  At first I write all useState code in "MarkdownEditor" this component, the file becomes really big and long,
   after finding ways to create custom hook, I separate all the states into individual hooks:
 
   useDarkMode
@@ -66,7 +67,8 @@ It's my second time to use react + vite to develope application, these are what 
 
   So I can reuse these state in any components, super convenient!
 
-- Add static asset - When I deploy this project on github pages I found a problem,
+- Add static asset -
+  When I deploy this project on github pages I found a problem,
   in development I can easily fetch the JSON data for first load, but in published site it doesn't work since there is no such path in bundled file.
   After checking documentation on Vite, there is a way called "Explicit URL Imports".
 
@@ -84,7 +86,8 @@ It's my second time to use react + vite to develope application, these are what 
 
   The problem was fixed! User can get default data when first load now.
 
-- Dark mode - This time I implement this by using modern css selector :has().
+- Dark mode -
+  This time I implement this by using modern css selector :has().
 
   ```css
   @mixin darkMode {
@@ -96,23 +99,39 @@ It's my second time to use react + vite to develope application, these are what 
 
   Now when I add .dark-mode class on body, the has selector detect .dark-mode class name has exist, then trigger dark mode styling.
 
-- Regex - Honestly I used to be a little afraid of using Regex, After this project I become more confident with it.
+  ```css
+  @include tablet {
+    padding-top: 1rem;
+    height: calc(100vh - 114px);
+  }
+  @include darkMode {
+    color: var(--clr-gray-3);
+  }
+  ```
+
+- Regex -
+  Honestly I used to be a little bit afraid of using Regex, After this project I become more confident with it.
   For parsing plain text to HTML tag, I create a Regex.tsx file to handle all the expression:
 
-  Headings,
-  Bold text,
-  Italic text,
-  Ordered and unordered list,
-  Blockquote,
-  Code block,
-  Paragraph,
-  Hyperlink,
-  Inline code,
-  Delete text
+  ````js
+  const HeadingRegex = /^\#+/;
+  const OrderedListRegex = /^[0-9].\s+/;
+  const UnOrderedListRegex = /^-\s+/;
+  const BlockquoteRegex = /^>\s+/;
+  const paragraphRegex = /^\w/;
+  const HyperLinkRegex = /(\[.+?\]\(https:\/\/.+?\))/g;
+  const HyperLinkRegex2 = /https:\/\/.+[^\)$]|[\w\s]+/g;
+  const InlineCodeRegex = /(\`[^`]+\`)/g;
+  const CodeBlockRegex = /^[```].+[```$]/g;
+  const BoldTextRegex = /(\*\*[^*]+\*\*)/g;
+  const ItalicTextRegex = /(\_[^_]+\_)/g;
+  const DelTextRegex = /(\~\~[^~]+\~\~)/g;
+  ````
 
   Really happy to learn something new and overcome it!
 
-- Parse plain text to HTML tag - This is the most difficult part of this project. Paring ordered, unordered list and code block are the most difficult
+- Parse plain text to HTML tag -
+  This is the most difficult part of this project. Paring ordered, unordered list and code block are the most difficult
   part, so I use the powerful reduce array function to achieve it.
   I did't use reduce much in other projects, but this time I am much familiar with it, really happy to make parsing HTML flow smooth!
 
