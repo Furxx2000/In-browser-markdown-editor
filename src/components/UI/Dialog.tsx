@@ -4,7 +4,6 @@ interface Props {
   name: string;
   timeStamp: string;
   isOpenDialog: boolean;
-  isDarkMode: boolean;
   changeDialogStatus: () => void;
   deleteCurFile: (fileName: string) => void;
 }
@@ -15,7 +14,6 @@ function Dialog({
   name,
   timeStamp,
   isOpenDialog,
-  isDarkMode,
 }: Props) {
   return (
     <>
@@ -29,11 +27,7 @@ function Dialog({
         className={`dialog rounded flex ${isOpenDialog ? 'is-active' : ''}`}
       >
         <h4 className='dialog-title'>Delete this document?</h4>
-        <p
-          className={`dialog-description ff-roboto-slab fs-250 text-gray-${
-            isDarkMode ? '3' : '2'
-          }`}
-        >
+        <p className='dialog-description ff-roboto-slab fs-250'>
           Are you sure you want to delete the ‘{name}’ document and its
           contents? This action cannot be reversed.
         </p>
