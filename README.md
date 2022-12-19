@@ -138,7 +138,7 @@ It's my second time to use react + vite to develope application, these are what 
   Parse list:
 
   ```js
-  function groupListsIntoString(arr: string[], regex: any) {
+  function groupListsIntoString(arr: string[], regex: RegExp) {
     const result = arr.reduce((accu: string[], cur: string) => {
       if (regex.test(cur) && regex.test(accu.slice(-1)[0])) {
         return [
