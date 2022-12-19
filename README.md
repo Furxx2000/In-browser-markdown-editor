@@ -54,10 +54,6 @@ Users should be able to:
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
 It's my second time to use react + vite to develope application, these are what I learned:
 
 - Custom Hook - At first I write all useState code in "MarkdownEditor" this component, the file becomes really big and long,
@@ -197,11 +193,11 @@ It's my second time to use react + vite to develope application, these are what 
   }
   ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
 ### Continued development
 
-For this project maybe I'll implement backend code to make it a fullstack app.
+For this project:
+
+- Export function - The next step is making this app really help someone who wants the export file.
 
 For next project:
 
