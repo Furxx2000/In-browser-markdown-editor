@@ -85,7 +85,7 @@ body.dark-mode {
     color: var(--clr-white-1);
   }
 
-  .block-quote {
+  blockquote {
     color: var(--clr-white-1);
     background-color: var(--clr-dark-3);
   }
@@ -201,6 +201,10 @@ pre {
 code {
   color: var(--clr-dark-4);
   font-family: var(--ff-roboto-mono);
+}
+
+blockquote {
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
