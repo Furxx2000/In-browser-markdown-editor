@@ -13,7 +13,7 @@ import {
   DelTextRegex,
 } from './Regex';
 
-function groupListsIntoString(arr: string[], regex: any) {
+function groupListsIntoString(arr: string[], regex: RegExp) {
   const result = arr.reduce((accu: string[], cur: string) => {
     if (regex.test(cur) && regex.test(accu.slice(-1)[0])) {
       return [...accu.slice(0, accu.length - 1), `${accu.slice(-1)[0]}|${cur}`];
@@ -46,7 +46,7 @@ function convertHeading(arr: string[]) {
   return headingTextArr;
 }
 
-function convertList(el: string, regex: any) {
+function convertList(el: string, regex: RegExp) {
   const listArr = el.split('|').map((list) => list.replace(regex, ''));
   const listType = regex === OrderedListRegex ? 'ol' : 'ul';
   const listTemp = `<${listType} class='flow'>${listArr
