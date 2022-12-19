@@ -68,7 +68,7 @@ function convertBlockquote(arr: string[]) {
   const blockquoteArr = arr.map((el) => {
     if (BlockquoteRegex.test(el)) {
       const blockquoteContent = el.replace(BlockquoteRegex, '');
-      const blockquoteTemp = `<div class='block-quote'><p>${blockquoteContent}</p></div>`;
+      const blockquoteTemp = `<blockquote><p>${blockquoteContent}</p></blockquote>`;
       return blockquoteTemp;
     }
     return el;
