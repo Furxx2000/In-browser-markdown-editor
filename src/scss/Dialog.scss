@@ -47,7 +47,12 @@
   }
 
   &-description {
+    color: var(--clr-gray-2);
     line-height: 24px;
+
+    @include darkMode {
+      color: var(--clr-gray-3);
+    }
   }
 
   &-btn {
