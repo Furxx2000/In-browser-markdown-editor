@@ -9,12 +9,18 @@
   width: 90%;
   height: 70px;
   padding-left: 1rem;
+  color: var(--clr-gray-2);
   border-radius: 8px;
   border-left: 12px solid var(--clr-orange-2);
   background-color: var(--clr-white-2);
   translate: -50% 0;
   z-index: 1000;
   transition: 0.5s ease;
+
+  @include darkMode {
+    color: var(--clr-gray-3);
+    background-color: var(--clr-dark-4);
+  }
 
   &.is-active {
     top: 8px;
