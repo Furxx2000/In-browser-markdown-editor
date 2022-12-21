@@ -1,14 +1,19 @@
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import '../../scss/Dialog.scss';
 
 interface Props {
   name: string;
   timeStamp: string;
-  deleteCurFile: (fileName: string) => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function Dialog({ deleteCurFile, name, timeStamp }: Props) {
-  const { dialog, changeDialogStatus } = useTheme();
+function Dialog({ dispatch, name, timeStamp }: Props) {
+  const { dialog, changeDialogStatus } = useCustomState();
+
+  function handleDeleteCurFile(timeStamp: string) {
+    dispatch({ type: 'deleteFile', payload: timeStamp });
+    changeDialogStatus();
+  }
 
   return (
     <>
@@ -29,7 +34,7 @@ function Dialog({ deleteCurFile, name, timeStamp }: Props) {
         <button
           type='button'
           className='dialog-btn bg-orange-1 text-white rounded'
-          onClick={() => deleteCurFile(timeStamp)}
+          onClick={() => handleDeleteCurFile(timeStamp)}
         >
           Confirm & Delete
         </button>

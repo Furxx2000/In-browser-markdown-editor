@@ -1,15 +1,19 @@
 import '../../../scss/Button.scss';
 
 interface Props {
-  addNewDocument: () => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function NewDocumentBtn({ addNewDocument }: Props) {
+function NewDocumentBtn({ dispatch }: Props) {
+  function handleAddNewDocument() {
+    dispatch({ type: 'createFile', payload: null });
+  }
+
   return (
     <button
       type='button'
       className='new-document-btn bg-orange-1 rounded text-white'
-      onClick={addNewDocument}
+      onClick={handleAddNewDocument}
     >
       + New Document
     </button>

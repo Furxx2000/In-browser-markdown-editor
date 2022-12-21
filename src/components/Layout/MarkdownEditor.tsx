@@ -3,50 +3,23 @@ import MainContent from './MainContent';
 import Dialog from '../UI/Dialog';
 import Toast from '../UI/Toast';
 import useFiles from '../../Hooks/useFiles';
-import { useTheme } from '../../Hooks/useDarkMode';
 
 function MarkdownEditor() {
-  const {
-    files,
-    curFile,
-    inputRef,
-    deleteCurFile,
-    changeCurFile,
-    AddNewDocument,
-    saveChange,
-    changeMarkdownContent,
-  } = useFiles();
-
-  const { changeDialogStatus, changeToastStatus } = useTheme();
-
-  function deleteCurDocument(timeStamp: string) {
-    deleteCurFile(timeStamp);
-    changeDialogStatus();
-  }
-
-  function saveCurChange() {
-    saveChange();
-    changeToastStatus();
-  }
+  const { files, curFile, inputRef, dispatch } = useFiles();
 
   return (
     <div className='root-container'>
-      <SideBar
-        files={files}
-        changeCurFile={changeCurFile}
-        addNewDocument={AddNewDocument}
-      />
+      <SideBar files={files} dispatch={dispatch} />
       <MainContent
         curFile={curFile}
         fileQuantity={files.length}
         inputRef={inputRef}
-        saveChange={saveCurChange}
-        changeMarkdownContent={changeMarkdownContent}
+        dispatch={dispatch}
       />
       <Dialog
         name={curFile.name}
         timeStamp={curFile.timeStamp}
-        deleteCurFile={deleteCurDocument}
+        dispatch={dispatch}
       />
       <Toast />
     </div>

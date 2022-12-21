@@ -5,27 +5,20 @@ import GrayHeader from '../UI/GrayHeader';
 import Preview from '../Preview/Preview';
 import FullPagePreview from '../Preview/FullPagePreview';
 import Document from '../../helpers/Interface';
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import '../../scss/MainContent.scss';
 
 interface Props {
   curFile: Document;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
-  saveChange: () => void;
-  changeMarkdownContent: (value: string) => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function MainContent({
-  curFile,
-  fileQuantity,
-  inputRef,
-  saveChange,
-  changeMarkdownContent,
-}: Props) {
+function MainContent({ curFile, fileQuantity, inputRef, dispatch }: Props) {
   const [isMarkdownOpen, setIsMarkdown] = useState(true);
   const [isOnePagePreviewOpen, setOnePagePreview] = useState(false);
-  const { menu } = useTheme();
+  const { menu } = useCustomState();
   const mql = window.matchMedia('(max-width: 480px)');
 
   function changeMarkdownStatus() {
@@ -43,7 +36,7 @@ function MainContent({
         isSelected={curFile.isSelected}
         fileQuantity={fileQuantity}
         inputRef={inputRef}
-        saveChange={saveChange}
+        dispatch={dispatch}
       />
       {isMarkdownOpen ? (
         <GrayHeader
@@ -70,7 +63,7 @@ function MainContent({
       <Markdown
         content={curFile.content}
         isMarkdownOpen={isMarkdownOpen}
-        onChangeMarkdownContent={changeMarkdownContent}
+        dispatch={dispatch}
       />
       <Preview content={curFile.content} isMarkdownOpen={isMarkdownOpen} />
 

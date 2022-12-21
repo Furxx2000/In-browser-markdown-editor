@@ -3,18 +3,22 @@ import SvgIcon from '../UI/SvgIcon';
 import ModeSwitcher from '../UI/ModeSwitcher';
 import SideBarList from '../UI/SideBarList';
 import Document from '../../helpers/Interface';
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 
 import '../../scss/SideBar.scss';
 
 interface Props {
   files: Document[];
-  changeCurFile: (fileName: string) => void;
-  addNewDocument: () => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function SideBar({ files, changeCurFile, addNewDocument }: Props) {
-  const { menu } = useTheme();
+function SideBar({ files, dispatch }: Props) {
+  const { menu } = useCustomState();
+
+  function handleChangeCurFile(timeStamp: string) {
+    dispatch({ type: 'changeFile', payload: timeStamp });
+  }
+
   return (
     <aside className={`side-bar bg-dark-2 ${menu ? 'is-active' : ''}`}>
       <nav className='grid'>
@@ -22,12 +26,12 @@ function SideBar({ files, changeCurFile, addNewDocument }: Props) {
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
           MY DOCUMENTS
         </p>
-        <NewDocumentBtn addNewDocument={addNewDocument} />
+        <NewDocumentBtn dispatch={dispatch} />
         <ul>
           {files.map((file: Document) => (
             <li
               key={file.timeStamp}
-              onClick={() => changeCurFile(file.timeStamp)}
+              onClick={() => handleChangeCurFile(file.timeStamp)}
             >
               <SideBarList
                 fileName={file.name}

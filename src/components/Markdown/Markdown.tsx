@@ -4,10 +4,10 @@ import '../../scss/Markdown.scss';
 interface Props {
   content: string;
   isMarkdownOpen: boolean;
-  onChangeMarkdownContent: (value: string) => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function Markdown({ content, isMarkdownOpen, onChangeMarkdownContent }: Props) {
+function Markdown({ content, isMarkdownOpen, dispatch }: Props) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   function getIndentWhenPressingTab(
@@ -25,6 +25,10 @@ function Markdown({ content, isMarkdownOpen, onChangeMarkdownContent }: Props) {
     }
   }
 
+  function handleChangeMarkdownContent(content: string) {
+    dispatch({ type: 'changeMarkdown', payload: content });
+  }
+
   return (
     <section className={`markdown ${isMarkdownOpen ? 'open' : ''} `}>
       <textarea
@@ -32,7 +36,7 @@ function Markdown({ content, isMarkdownOpen, onChangeMarkdownContent }: Props) {
         className='markdown-content ff-roboto-mono fs-250'
         ref={textAreaRef}
         value={content}
-        onChange={(e) => onChangeMarkdownContent(e.target.value)}
+        onChange={(e) => handleChangeMarkdownContent(e.target.value)}
         onKeyDown={(e) => getIndentWhenPressingTab(e)}
       ></textarea>
     </section>
