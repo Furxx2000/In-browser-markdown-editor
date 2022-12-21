@@ -1,8 +1,13 @@
-import './assets/App.scss';
 import MarkdownEditor from './components/Layout/MarkdownEditor';
+import { ThemeProvider } from './Hooks/useDarkMode';
+import './assets/App.scss';
 
 function App() {
-  return <MarkdownEditor />;
+  return (
+    <ThemeProvider>
+      <MarkdownEditor />
+    </ThemeProvider>
+  );
 }
 
 export default App;
