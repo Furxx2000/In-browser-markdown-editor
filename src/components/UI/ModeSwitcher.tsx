@@ -1,10 +1,10 @@
 import SvgIcon from './SvgIcon';
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import '../../scss/ModeSwitcher.scss';
 
 function ModeSwitcher() {
   const notActive = '#5a6069';
-  const { theme, toggleDarkMode } = useTheme();
+  const { theme, toggleDarkMode } = useCustomState();
 
   return (
     <div className='mode-switcher flex'>

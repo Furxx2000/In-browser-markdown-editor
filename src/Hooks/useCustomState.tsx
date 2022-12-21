@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { getTheme, setTheme, getMediaPreference } from '../helpers/DarkMode';
 
-export function useThemeSource() {
+export function useStateSource() {
   const [theme, setMode] = useState(false);
   const [toast, setToast] = useState(false);
   const [menu, setMenuStatus] = useState(false);
@@ -51,17 +51,17 @@ export function useThemeSource() {
   };
 }
 
-const ThemeContext = createContext<ReturnType<typeof useThemeSource>>(
-  null as unknown as ReturnType<typeof useThemeSource>
+const ThemeContext = createContext<ReturnType<typeof useStateSource>>(
+  null as unknown as ReturnType<typeof useStateSource>
 );
 
-export function useTheme() {
+export function useCustomState() {
   return useContext(ThemeContext);
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeContext.Provider value={useThemeSource()}>
+    <ThemeContext.Provider value={useStateSource()}>
       {children}
     </ThemeContext.Provider>
   );

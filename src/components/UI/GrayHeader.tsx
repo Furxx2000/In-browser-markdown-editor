@@ -1,4 +1,4 @@
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import SvgIcon from './SvgIcon';
 import '../../scss/GrayHeader.scss';
 
@@ -15,7 +15,7 @@ function GrayHeader({
   onChangeMarkdownStatus,
   changeOnePagePreviewStatus,
 }: Props) {
-  const theme = useTheme();
+  const theme = useCustomState();
   const grayColor = theme ? '#C1C4CB' : '#7C8187';
   const mql = window.matchMedia('(max-width: 480px)');
   const isTabletMarkdown = !mql.matches && text === 'MARKDOWN';

@@ -1,9 +1,9 @@
 import SvgIcon from './SvgIcon';
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import '../../scss/Toast.scss';
 
 export default function Toast() {
-  const { toast } = useTheme();
+  const { toast } = useCustomState();
 
   return (
     <div className={`toast flex ${toast ? 'is-active' : ''}`}>

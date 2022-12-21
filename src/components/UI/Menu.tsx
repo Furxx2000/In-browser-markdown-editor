@@ -1,9 +1,9 @@
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import SvgIcon from './SvgIcon';
 import '../../scss/Menu.scss';
 
 function Menu() {
-  const { menu, changeMenuStatus } = useTheme();
+  const { menu, changeMenuStatus } = useCustomState();
 
   return (
     <button
