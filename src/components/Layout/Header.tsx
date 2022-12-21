@@ -3,7 +3,7 @@ import FileRename from '../UI/FileRename';
 import SvgIcon from '../UI/SvgIcon';
 import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
 import { RefObject } from 'react';
-import { useTheme } from '../../Hooks/useDarkMode';
+import { useCustomState } from '../../Hooks/useCustomState';
 import '../../scss/Header.scss';
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
   isSelected: boolean;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
-  saveChange: () => void;
+  dispatch: React.Dispatch<any>;
 }
 
-function Header({ name, fileQuantity, inputRef, saveChange }: Props) {
-  const { menu, changeDialogStatus } = useTheme();
+function Header({ name, fileQuantity, inputRef, dispatch }: Props) {
+  const { menu, changeDialogStatus } = useCustomState();
 
   return (
     <>
@@ -32,7 +32,7 @@ function Header({ name, fileQuantity, inputRef, saveChange }: Props) {
             onClick={changeDialogStatus}
           />
         )}
-        <SaveChangeBtn saveChange={saveChange} />
+        <SaveChangeBtn dispatch={dispatch} />
       </header>
     </>
   );
