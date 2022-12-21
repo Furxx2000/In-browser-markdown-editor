@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Document from '../helpers/Interface';
 import MONTHS from '../helpers/Months';
 import {
@@ -100,8 +100,14 @@ function useFiles() {
     setNewFiles(newArr);
   }
 
+  const curFile = useMemo(
+    () => files.filter((file) => file.isSelected),
+    [files]
+  )[0];
+
   return {
     files,
+    curFile,
     inputRef,
     deleteCurFile,
     changeCurFile,
