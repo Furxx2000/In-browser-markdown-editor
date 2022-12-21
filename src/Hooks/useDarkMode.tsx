@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { getTheme, setTheme, getMediaPreference } from '../helpers/DarkMode';
 
-function useDarkMode() {
-  const [isDarkMode, setMode] = useState(false);
+export function useThemeSource() {
+  const [theme, setMode] = useState(false);
+  const [toast, setToast] = useState(false);
+  const [menu, setMenuStatus] = useState(false);
+  const [dialog, setIsOpenDialog] = useState(false);
 
   useEffect(() => {
     const userTheme = getTheme() || getMediaPreference();
@@ -15,13 +18,51 @@ function useDarkMode() {
   }, []);
 
   function toggleDarkMode() {
-    if (isDarkMode) setTheme('light-mode');
+    if (theme) setTheme('light-mode');
     else setTheme('dark-mode');
-    setMode(!isDarkMode);
+    setMode(!theme);
     document.body.classList.toggle('dark-mode');
   }
 
-  return { isDarkMode, toggleDarkMode };
+  function changeMenuStatus() {
+    setMenuStatus(!menu);
+  }
+
+  function changeDialogStatus() {
+    setIsOpenDialog(!dialog);
+  }
+
+  function changeToastStatus() {
+    setToast(true);
+    setTimeout(() => {
+      setToast(false);
+    }, 2000);
+  }
+
+  return {
+    theme,
+    menu,
+    dialog,
+    toast,
+    changeToastStatus,
+    changeDialogStatus,
+    changeMenuStatus,
+    toggleDarkMode,
+  };
 }
 
-export default useDarkMode;
+const ThemeContext = createContext<ReturnType<typeof useThemeSource>>(
+  null as unknown as ReturnType<typeof useThemeSource>
+);
+
+export function useTheme() {
+  return useContext(ThemeContext);
+}
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeContext.Provider value={useThemeSource()}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
