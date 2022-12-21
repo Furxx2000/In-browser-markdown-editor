@@ -37,7 +37,8 @@ function useFiles() {
       case 'setFile':
         return payload;
       case 'createFile':
-        const newFile = AddNewDocument(state)!;
+        const newFile = AddNewDocument();
+        if (LastDocumentTimeStamp(state) < 2) return state;
         return [newFile, ...state];
       case 'changeFile':
         const changedFiles = changeCurFile(state, payload);
@@ -103,9 +104,7 @@ function useFiles() {
     return newFiles;
   }
 
-  function AddNewDocument(files: Document[]) {
-    if (LastDocumentTimeStamp(files) < 3) return;
-
+  function AddNewDocument() {
     return CreateNewDocument(MONTHS);
   }
 
