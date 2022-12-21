@@ -1,30 +1,25 @@
+import { useTheme } from '../../Hooks/useDarkMode';
 import '../../scss/Dialog.scss';
 
 interface Props {
   name: string;
   timeStamp: string;
-  isOpenDialog: boolean;
-  changeDialogStatus: () => void;
   deleteCurFile: (fileName: string) => void;
 }
 
-function Dialog({
-  changeDialogStatus,
-  deleteCurFile,
-  name,
-  timeStamp,
-  isOpenDialog,
-}: Props) {
+function Dialog({ deleteCurFile, name, timeStamp }: Props) {
+  const { dialog, changeDialogStatus } = useTheme();
+
   return (
     <>
       <div
-        className={`backdrop  ${isOpenDialog ? 'is-active' : ''}`}
+        className={`backdrop  ${dialog ? 'is-active' : ''}`}
         onClick={changeDialogStatus}
       ></div>
       <div
         role='dialog'
         aria-label='Delete this document?'
-        className={`dialog rounded flex ${isOpenDialog ? 'is-active' : ''}`}
+        className={`dialog rounded flex ${dialog ? 'is-active' : ''}`}
       >
         <h4 className='dialog-title'>Delete this document?</h4>
         <p className='dialog-description ff-roboto-slab fs-250'>

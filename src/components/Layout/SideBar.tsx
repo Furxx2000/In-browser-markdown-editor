@@ -3,27 +3,20 @@ import SvgIcon from '../UI/SvgIcon';
 import ModeSwitcher from '../UI/ModeSwitcher';
 import SideBarList from '../UI/SideBarList';
 import Document from '../../helpers/Interface';
+import { useTheme } from '../../Hooks/useDarkMode';
+
 import '../../scss/SideBar.scss';
 
 interface Props {
   files: Document[];
-  isMenuOpen: boolean;
-  isDarkMode: boolean;
   changeCurFile: (fileName: string) => void;
   addNewDocument: () => void;
-  toggleDarkMode: () => void;
 }
 
-function SideBar({
-  files,
-  isMenuOpen,
-  isDarkMode,
-  changeCurFile,
-  addNewDocument,
-  toggleDarkMode,
-}: Props) {
+function SideBar({ files, changeCurFile, addNewDocument }: Props) {
+  const { menu } = useTheme();
   return (
-    <aside className={`side-bar bg-dark-2 ${isMenuOpen ? 'is-active' : ''}`}>
+    <aside className={`side-bar bg-dark-2 ${menu ? 'is-active' : ''}`}>
       <nav className='grid'>
         <SvgIcon className='icon-logo' name='logo' color='white' />
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
@@ -45,7 +38,7 @@ function SideBar({
           ))}
         </ul>
       </nav>
-      <ModeSwitcher isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <ModeSwitcher />
     </aside>
   );
 }

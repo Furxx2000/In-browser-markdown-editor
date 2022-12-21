@@ -1,10 +1,10 @@
+import { useTheme } from '../../Hooks/useDarkMode';
 import SvgIcon from './SvgIcon';
 import '../../scss/GrayHeader.scss';
 
 interface Props {
   text: string;
   icon: string;
-  isDarkMode: boolean;
   onChangeMarkdownStatus?: () => void;
   changeOnePagePreviewStatus?: () => void;
 }
@@ -12,11 +12,11 @@ interface Props {
 function GrayHeader({
   text,
   icon,
-  isDarkMode,
   onChangeMarkdownStatus,
   changeOnePagePreviewStatus,
 }: Props) {
-  const grayColor = isDarkMode ? '#C1C4CB' : '#7C8187';
+  const theme = useTheme();
+  const grayColor = theme ? '#C1C4CB' : '#7C8187';
   const mql = window.matchMedia('(max-width: 480px)');
   const isTabletMarkdown = !mql.matches && text === 'MARKDOWN';
 

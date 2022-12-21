@@ -5,33 +5,27 @@ import GrayHeader from '../UI/GrayHeader';
 import Preview from '../Preview/Preview';
 import FullPagePreview from '../Preview/FullPagePreview';
 import Document from '../../helpers/Interface';
+import { useTheme } from '../../Hooks/useDarkMode';
 import '../../scss/MainContent.scss';
 
 interface Props {
   curFile: Document;
-  isMenuOpen: boolean;
   fileQuantity: number;
   inputRef: RefObject<HTMLInputElement>;
-  isDarkMode: boolean;
-  onChangeMenuStatus: () => void;
-  onChangeDialogStatus: () => void;
   saveChange: () => void;
   changeMarkdownContent: (value: string) => void;
 }
 
 function MainContent({
   curFile,
-  isMenuOpen,
   fileQuantity,
   inputRef,
-  isDarkMode,
-  onChangeMenuStatus,
-  onChangeDialogStatus,
   saveChange,
   changeMarkdownContent,
 }: Props) {
   const [isMarkdownOpen, setIsMarkdown] = useState(true);
   const [isOnePagePreviewOpen, setOnePagePreview] = useState(false);
+  const { menu } = useTheme();
   const mql = window.matchMedia('(max-width: 480px)');
 
   function changeMarkdownStatus() {
@@ -43,29 +37,24 @@ function MainContent({
   }
 
   return (
-    <main className={`main-content ${isMenuOpen ? 'is-active' : ''}`}>
+    <main className={`main-content ${menu ? 'is-active' : ''}`}>
       <Header
         name={curFile.name}
         isSelected={curFile.isSelected}
-        isMenuOpen={isMenuOpen}
         fileQuantity={fileQuantity}
         inputRef={inputRef}
-        onChangeMenuStatus={onChangeMenuStatus}
-        onChangeDialogStatus={onChangeDialogStatus}
         saveChange={saveChange}
       />
       {isMarkdownOpen ? (
         <GrayHeader
           text='MARKDOWN'
           icon='icon-show-preview'
-          isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
         />
       ) : (
         <GrayHeader
           text='PREVIEW'
           icon='icon-hide-preview'
-          isDarkMode={isDarkMode}
           onChangeMarkdownStatus={changeMarkdownStatus}
         />
       )}
@@ -73,7 +62,6 @@ function MainContent({
         <GrayHeader
           text='PREVIEW'
           icon='icon-show-preview'
-          isDarkMode={isDarkMode}
           changeOnePagePreviewStatus={changeOnePagePreviewStatus}
         />
       ) : (
@@ -89,7 +77,6 @@ function MainContent({
       {isOnePagePreviewOpen && (
         <FullPagePreview
           content={curFile.content}
-          isDarkMode={isDarkMode}
           changeOnePagePreviewStatus={changeOnePagePreviewStatus}
         />
       )}
