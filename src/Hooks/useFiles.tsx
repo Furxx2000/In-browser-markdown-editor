@@ -1,16 +1,23 @@
-import { useEffect, useRef, useMemo, useReducer } from 'react';
-import Document from '../helpers/Interface';
-import MONTHS from '../helpers/Months';
+import React, {
+  useEffect,
+  useRef,
+  useMemo,
+  useReducer,
+  createContext,
+  useContext,
+} from 'react';
 import {
   LastDocumentTimeStamp,
   CreateNewDocument,
 } from '../helpers/AddNewDocument';
 import { getUserFiles, setUserFiles } from '../helpers/UserFiles';
+import { CustomStateProvider } from './useCustomState';
+import Document from '../helpers/Interface';
+import MONTHS from '../helpers/Months';
 import JSONdata from '../../data/data.json?url';
 
-function useFiles() {
+function useFileSource() {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const initial = [
     {
       name: '',
@@ -152,4 +159,18 @@ function useFiles() {
   };
 }
 
-export default useFiles;
+const FileContext = createContext<ReturnType<typeof useFileSource>>(
+  null as unknown as ReturnType<typeof useFileSource>
+);
+
+export function useFile() {
+  return useContext(FileContext);
+}
+
+export function FileProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <FileContext.Provider value={useFileSource()}>
+      <CustomStateProvider>{children}</CustomStateProvider>
+    </FileContext.Provider>
+  );
+}
