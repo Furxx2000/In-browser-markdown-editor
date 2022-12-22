@@ -30,14 +30,16 @@ function Markdown() {
 
   return (
     <section className={`markdown ${markdown ? 'open' : ''} `}>
-      <textarea
-        id='editor'
-        className='markdown-content ff-roboto-mono fs-250'
-        ref={textAreaRef}
-        value={content}
-        onChange={(e) => handleChangeMarkdownContent(e.target.value)}
-        onKeyDown={(e) => getIndentWhenPressingTab(e)}
-      ></textarea>
+      <label htmlFor='editor'>
+        <textarea
+          id='editor'
+          className='markdown-content ff-roboto-mono fs-250'
+          ref={textAreaRef}
+          value={content}
+          onChange={(e) => handleChangeMarkdownContent(e.target.value)}
+          onKeyDown={(e) => getIndentWhenPressingTab(e)}
+        ></textarea>
+      </label>
     </section>
   );
 }

@@ -18,16 +18,9 @@ function FileRename() {
     <div className='file-rename flex text-white'>
       <SvgIcon name='icon-document' color='white' />
       <div className='document-name'>
-        {mql.matches ? (
-          ''
-        ) : (
-          <label
-            htmlFor='document-name'
-            className='fs-200 fw-light text-gray-2'
-          >
-            Document Name
-          </label>
-        )}
+        <label htmlFor='document-name' className='fs-200 fw-light text-gray-2'>
+          Document Name
+        </label>
 
         <input
           id='document-name'
