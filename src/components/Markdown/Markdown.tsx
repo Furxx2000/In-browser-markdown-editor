@@ -1,14 +1,13 @@
-import { useRef } from 'react';
+import { useCustomState } from '../../Hooks/useCustomState';
+import { useFile } from '../../Hooks/useFiles';
+import { useMemo, useRef } from 'react';
 import '../../scss/Markdown.scss';
 
-interface Props {
-  content: string;
-  isMarkdownOpen: boolean;
-  dispatch: React.Dispatch<any>;
-}
-
-function Markdown({ content, isMarkdownOpen, dispatch }: Props) {
+function Markdown() {
+  const { curFile, dispatch } = useFile();
+  const { markdown } = useCustomState();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const content = useMemo(() => curFile.content, [curFile]);
 
   function getIndentWhenPressingTab(
     e: React.KeyboardEvent<HTMLTextAreaElement>
@@ -30,7 +29,7 @@ function Markdown({ content, isMarkdownOpen, dispatch }: Props) {
   }
 
   return (
-    <section className={`markdown ${isMarkdownOpen ? 'open' : ''} `}>
+    <section className={`markdown ${markdown ? 'open' : ''} `}>
       <textarea
         id='editor'
         className='markdown-content ff-roboto-mono fs-250'
