@@ -15,6 +15,7 @@ function SaveChangeBtn() {
   return (
     <button
       type='button'
+      aria-label='Save Changes'
       className='save-change bg-orange-1 rounded text-white'
       onClick={handleSaveChangeFile}
     >
