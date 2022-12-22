@@ -1,11 +1,13 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { getTheme, setTheme, getMediaPreference } from '../helpers/DarkMode';
 
-export function useStateSource() {
+function useStateSource() {
   const [theme, setMode] = useState(false);
   const [toast, setToast] = useState(false);
   const [menu, setMenuStatus] = useState(false);
   const [dialog, setIsOpenDialog] = useState(false);
+  const [markdown, setMarkdown] = useState(true);
+  const [onePagePreview, setOnePagePreview] = useState(false);
 
   useEffect(() => {
     const userTheme = getTheme() || getMediaPreference();
@@ -32,6 +34,14 @@ export function useStateSource() {
     setIsOpenDialog(!dialog);
   }
 
+  function changeMarkdownStatus() {
+    setMarkdown(!markdown);
+  }
+
+  function changeOnePagePreviewStatus() {
+    setOnePagePreview(!onePagePreview);
+  }
+
   function changeToastStatus() {
     setToast(true);
     setTimeout(() => {
@@ -44,6 +54,10 @@ export function useStateSource() {
     menu,
     dialog,
     toast,
+    markdown,
+    onePagePreview,
+    changeOnePagePreviewStatus,
+    changeMarkdownStatus,
     changeToastStatus,
     changeDialogStatus,
     changeMenuStatus,
@@ -51,18 +65,22 @@ export function useStateSource() {
   };
 }
 
-const ThemeContext = createContext<ReturnType<typeof useStateSource>>(
+const CustomStateContext = createContext<ReturnType<typeof useStateSource>>(
   null as unknown as ReturnType<typeof useStateSource>
 );
 
 export function useCustomState() {
-  return useContext(ThemeContext);
+  return useContext(CustomStateContext);
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function CustomStateProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <ThemeContext.Provider value={useStateSource()}>
+    <CustomStateContext.Provider value={useStateSource()}>
       {children}
-    </ThemeContext.Provider>
+    </CustomStateContext.Provider>
   );
 }
