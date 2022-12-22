@@ -1,12 +1,12 @@
 import MarkdownEditor from './components/Layout/MarkdownEditor';
-import { ThemeProvider } from './Hooks/useCustomState';
+import { FileProvider } from './Hooks/useFiles';
 import './assets/App.scss';
 
 function App() {
   return (
-    <ThemeProvider>
+    <FileProvider>
       <MarkdownEditor />
-    </ThemeProvider>
+    </FileProvider>
   );
 }
 
