@@ -1,5 +1,5 @@
-import SvgIcon from './SvgIcon';
 import { useCustomState } from '../../Hooks/useCustomState';
+import SvgIcon from './SvgIcon';
 import '../../scss/Toast.scss';
 
 export default function Toast() {

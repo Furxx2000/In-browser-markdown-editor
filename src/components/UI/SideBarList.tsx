@@ -1,5 +1,5 @@
-import '../../scss/SideBarList.scss';
 import SvgIcon from './SvgIcon';
+import '../../scss/SideBarList.scss';
 
 interface Props {
   fileName: string;
