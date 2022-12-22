@@ -54,8 +54,6 @@ Users should be able to:
 
 ### What I learned
 
-It's my second time to use react + vite to develope application, these are what I learned:
-
 - Custom Hook -
   At first I write all useState code in "MarkdownEditor" this component, the file becomes really big and long,
   after finding ways to create custom hook, I separate all the states into individual hooks:
@@ -211,6 +209,11 @@ It's my second time to use react + vite to develope application, these are what 
     return codeBlockArr;
   }
   ```
+
+  - useContext - I followed react doc's recommendation using top-down(parent to child) data flow via props,
+    but many components need certain types of props like UI theme, so passing props becomes a cumbersome task.
+    Then I found useContext and follow the docs and clips on freecodecamp to rebuild the data flow, makes it global.
+    Now it looks cleaner!
 
 ### Continued development
 
