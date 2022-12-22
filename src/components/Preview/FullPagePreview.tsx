@@ -2,24 +2,12 @@ import GrayHeader from '../UI/GrayHeader';
 import Preview from './Preview';
 import '../../scss/FullPagePreview.scss';
 
-interface Props {
-  content: string;
-  changeOnePagePreviewStatus: () => void;
-}
-
-export default function FullPagePreview({
-  content,
-  changeOnePagePreviewStatus,
-}: Props) {
+export default function FullPagePreview() {
   return (
     <div className='one-page-preview'>
-      <GrayHeader
-        text='PREVIEW'
-        icon='icon-hide-preview'
-        changeOnePagePreviewStatus={changeOnePagePreviewStatus}
-      />
+      <GrayHeader text='PREVIEW' icon='icon-hide-preview' />
       <div className='one-page-preview-content'>
-        <Preview content={content} />
+        <Preview />
       </div>
     </div>
   );
