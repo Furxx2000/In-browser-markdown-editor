@@ -1,18 +1,14 @@
+import { useCustomState } from '../../Hooks/useCustomState';
+import { useFile } from '../../Hooks/useFiles';
 import NewDocumentBtn from '../UI/Buttons/NewDocumentBtn';
-import SvgIcon from '../UI/SvgIcon';
+import Document from '../../helpers/Interface';
 import ModeSwitcher from '../UI/ModeSwitcher';
 import SideBarList from '../UI/SideBarList';
-import Document from '../../helpers/Interface';
-import { useCustomState } from '../../Hooks/useCustomState';
-
+import SvgIcon from '../UI/SvgIcon';
 import '../../scss/SideBar.scss';
 
-interface Props {
-  files: Document[];
-  dispatch: React.Dispatch<any>;
-}
-
-function SideBar({ files, dispatch }: Props) {
+function SideBar() {
+  const { files, dispatch } = useFile();
   const { menu } = useCustomState();
 
   function handleChangeCurFile(timeStamp: string) {
@@ -26,7 +22,7 @@ function SideBar({ files, dispatch }: Props) {
         <p className='fs-250 fw-medium text-gray-2 letter-spacing-1'>
           MY DOCUMENTS
         </p>
-        <NewDocumentBtn dispatch={dispatch} />
+        <NewDocumentBtn />
         <ul>
           {files.map((file: Document) => (
             <li

@@ -5,17 +5,11 @@ import '../../scss/GrayHeader.scss';
 interface Props {
   text: string;
   icon: string;
-  onChangeMarkdownStatus?: () => void;
-  changeOnePagePreviewStatus?: () => void;
 }
 
-function GrayHeader({
-  text,
-  icon,
-  onChangeMarkdownStatus,
-  changeOnePagePreviewStatus,
-}: Props) {
-  const theme = useCustomState();
+function GrayHeader({ text, icon }: Props) {
+  const { theme, changeMarkdownStatus, changeOnePagePreviewStatus } =
+    useCustomState();
   const grayColor = theme ? '#C1C4CB' : '#7C8187';
   const mql = window.matchMedia('(max-width: 480px)');
   const isTabletMarkdown = !mql.matches && text === 'MARKDOWN';
@@ -30,11 +24,7 @@ function GrayHeader({
       {isTabletMarkdown ? (
         ''
       ) : mql.matches ? (
-        <SvgIcon
-          name={icon}
-          color={grayColor}
-          onClick={onChangeMarkdownStatus}
-        />
+        <SvgIcon name={icon} color={grayColor} onClick={changeMarkdownStatus} />
       ) : (
         <SvgIcon
           name={icon}

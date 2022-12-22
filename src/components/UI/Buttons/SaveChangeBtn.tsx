@@ -1,12 +1,10 @@
 import { useCustomState } from '../../../Hooks/useCustomState';
+import { useFile } from '../../../Hooks/useFiles';
 import SvgIcon from '../SvgIcon';
 import '../../../scss/Button.scss';
 
-interface Props {
-  dispatch: React.Dispatch<any>;
-}
-
-function SaveChangeBtn({ dispatch }: Props) {
+function SaveChangeBtn() {
+  const { dispatch } = useFile();
   const { changeToastStatus } = useCustomState();
 
   function handleSaveChangeFile() {

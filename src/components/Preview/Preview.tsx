@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useCustomState } from '../../Hooks/useCustomState';
+import { useEffect, useMemo, useState } from 'react';
+import { useFile } from '../../Hooks/useFiles';
 import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
 import '../../scss/Preview.scss';
 
-interface Props {
-  content: string;
-  isMarkdownOpen?: boolean;
-}
-
-function Preview({ content, isMarkdownOpen }: Props) {
+function Preview() {
   const [htmlContent, setHtmlContent] = useState('');
+  const { curFile } = useFile();
+  const { markdown } = useCustomState();
   const mql = window.matchMedia('(max-width: 480px)');
+  const content = useMemo(() => curFile.content, [curFile]);
 
   useEffect(() => {
     const temp = ConvertMarkdownToPreview(content);
@@ -17,9 +17,7 @@ function Preview({ content, isMarkdownOpen }: Props) {
   }, [content]);
 
   return (
-    <section
-      className={`preview ${isMarkdownOpen && mql.matches ? '' : 'open'}`}
-    >
+    <section className={`preview ${markdown && mql.matches ? '' : 'open'}`}>
       <div
         id='preview'
         className='preview-content grid ff-roboto-slab fs-250'

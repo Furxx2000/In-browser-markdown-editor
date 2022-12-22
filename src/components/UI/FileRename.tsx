@@ -1,14 +1,12 @@
-import { RefObject, useEffect } from 'react';
+import { useFile } from '../../Hooks/useFiles';
+import { useEffect, useMemo } from 'react';
 import SvgIcon from './SvgIcon';
 import '../../scss/FileRename.scss';
 
-interface Props {
-  fileName: string;
-  inputRef: RefObject<HTMLInputElement>;
-}
-
-function FileRename({ fileName, inputRef }: Props) {
+function FileRename() {
   const mql = window.matchMedia('(max-width: 480px)');
+  const { curFile, inputRef } = useFile();
+  const fileName = useMemo(() => curFile.name, [curFile]);
 
   useEffect(() => {
     if (inputRef?.current !== null) {

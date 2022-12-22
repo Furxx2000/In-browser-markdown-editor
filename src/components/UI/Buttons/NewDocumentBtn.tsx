@@ -1,10 +1,9 @@
+import { useFile } from '../../../Hooks/useFiles';
 import '../../../scss/Button.scss';
 
-interface Props {
-  dispatch: React.Dispatch<any>;
-}
+function NewDocumentBtn() {
+  const { dispatch } = useFile();
 
-function NewDocumentBtn({ dispatch }: Props) {
   function handleAddNewDocument() {
     dispatch({ type: 'createFile', payload: null });
   }

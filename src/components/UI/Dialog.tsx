@@ -1,14 +1,17 @@
 import { useCustomState } from '../../Hooks/useCustomState';
+import { useFile } from '../../Hooks/useFiles';
+import { useMemo } from 'react';
 import '../../scss/Dialog.scss';
 
-interface Props {
-  name: string;
-  timeStamp: string;
-  dispatch: React.Dispatch<any>;
-}
-
-function Dialog({ dispatch, name, timeStamp }: Props) {
+function Dialog() {
+  const { curFile, dispatch } = useFile();
   const { dialog, changeDialogStatus } = useCustomState();
+  const { name, timeStamp } = useMemo(() => {
+    return {
+      name: curFile.name,
+      timeStamp: curFile.timeStamp,
+    };
+  }, [curFile]);
 
   function handleDeleteCurFile(timeStamp: string) {
     dispatch({ type: 'deleteFile', payload: timeStamp });

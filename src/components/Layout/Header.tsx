@@ -1,21 +1,16 @@
-import Menu from '../UI/Menu';
+import { useCustomState } from '../../Hooks/useCustomState';
+import { useFile } from '../../Hooks/useFiles';
+import { useMemo } from 'react';
+import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
 import FileRename from '../UI/FileRename';
 import SvgIcon from '../UI/SvgIcon';
-import SaveChangeBtn from '../UI/Buttons/SaveChangeBtn';
-import { RefObject } from 'react';
-import { useCustomState } from '../../Hooks/useCustomState';
+import Menu from '../UI/Menu';
 import '../../scss/Header.scss';
 
-interface Props {
-  name: string;
-  isSelected: boolean;
-  fileQuantity: number;
-  inputRef: RefObject<HTMLInputElement>;
-  dispatch: React.Dispatch<any>;
-}
-
-function Header({ name, fileQuantity, inputRef, dispatch }: Props) {
+function Header() {
+  const { files } = useFile();
   const { menu, changeDialogStatus } = useCustomState();
+  const fileQuantity = useMemo(() => files.length, [files]);
 
   return (
     <>
@@ -23,7 +18,7 @@ function Header({ name, fileQuantity, inputRef, dispatch }: Props) {
         <Menu />
         <SvgIcon className='icon-logo' name='logo' color='white' />
         <div className='divider'></div>
-        <FileRename fileName={name} inputRef={inputRef} />
+        <FileRename />
         {fileQuantity > 1 && (
           <SvgIcon
             className='icon-delete'
@@ -32,7 +27,7 @@ function Header({ name, fileQuantity, inputRef, dispatch }: Props) {
             onClick={changeDialogStatus}
           />
         )}
-        <SaveChangeBtn dispatch={dispatch} />
+        <SaveChangeBtn />
       </header>
     </>
   );
