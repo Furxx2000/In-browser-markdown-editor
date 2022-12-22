@@ -19,8 +19,12 @@
   }
 
   label {
-    display: block;
+    display: none;
     line-height: 15px;
+
+    @include tablet {
+      display: block;
+    }
   }
 
   input {
