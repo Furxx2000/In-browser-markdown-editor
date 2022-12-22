@@ -48,17 +48,13 @@ function useFileSource() {
         if (LastDocumentTimeStamp(state) < 2) return state;
         return [newFile, ...state];
       case 'changeFile':
-        const changedFiles = changeCurFile(state, payload);
-        return changedFiles;
+        return changeCurFile(state, payload);
       case 'deleteFile':
-        const deletedFiles = deleteCurFile(state, payload)!;
-        return deletedFiles;
+        return deleteCurFile(state, payload)!;
       case 'saveFile':
-        const savedFiles = saveChange(state)!;
-        return savedFiles;
+        return saveChange(state)!;
       case 'changeMarkdown':
-        const changedMarkdownFile = changeMarkdownContent(state, payload);
-        return changedMarkdownFile;
+        return changeMarkdownContent(state, payload);
       default:
         return state;
     }
