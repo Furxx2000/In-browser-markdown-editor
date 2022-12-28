@@ -1,7 +1,7 @@
 import { useCustomState } from '../../Hooks/useCustomState';
 import { useEffect, useMemo, useState } from 'react';
 import { useFile } from '../../Hooks/useFiles';
-import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
+import ConvertMarkdownToPreview from '../../helpers/convertMarkdownToPreview';
 import '../../scss/Preview.scss';
 
 function Preview() {
