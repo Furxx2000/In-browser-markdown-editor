@@ -37,8 +37,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/Furxx2000/In-browser-markdown-editor)
-- Live Site URL: [Add live site URL here](https://furxx2000.github.io/In-browser-markdown-editor/)
+- Solution URL: [Solution](https://www.frontendmentor.io/solutions/inbrowser-markdown-editor-lZHPZ65PMe)
+- Live Site URL: [Live site](https://furxx2000.github.io/In-browser-markdown-editor/)
 
 ### Built with
 
