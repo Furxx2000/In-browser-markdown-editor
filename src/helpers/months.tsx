@@ -1,5 +1,3 @@
-import {} from './Months';
-
 const MONTHS = [
   'January',
   'February',

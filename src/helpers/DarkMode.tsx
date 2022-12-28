@@ -1,5 +1,3 @@
-import {} from './Regex';
-
 function getTheme() {
   return localStorage.getItem('user-theme');
 }
