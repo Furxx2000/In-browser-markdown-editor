@@ -13,7 +13,7 @@ import {
 import { getUserFiles, setUserFiles } from '../helpers/UserFiles';
 import { CustomStateProvider } from './useCustomState';
 import Document from '../helpers/Interface';
-import MONTHS from '../helpers/Months';
+import MONTHS from '../helpers/months';
 import JSONdata from '../../data/data.json?url';
 
 function useFileSource() {
