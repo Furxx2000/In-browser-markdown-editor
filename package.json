@@ -13,11 +13,13 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^2.4.0",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "@vitejs/plugin-react": "^2.2.0",
+    "dompurify": "^2.4.3",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
