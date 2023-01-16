@@ -1,6 +1,7 @@
 import { useCustomState } from '../../Hooks/useCustomState';
 import { useEffect, useMemo, useState } from 'react';
 import { useFile } from '../../Hooks/useFiles';
+import DOMPurify from 'dompurify';
 import ConvertMarkdownToPreview from '../../helpers/convertMarkdownToPreview';
 import '../../scss/Preview.scss';
 
@@ -13,7 +14,8 @@ function Preview() {
 
   useEffect(() => {
     const temp = ConvertMarkdownToPreview(content);
-    setHtmlContent(temp);
+    const purifiedHTML = DOMPurify.sanitize(temp, { FORCE_BODY: true });
+    setHtmlContent(purifiedHTML);
   }, [content]);
 
   return (
