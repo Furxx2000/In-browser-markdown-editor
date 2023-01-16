@@ -4,7 +4,6 @@ import SvgIcon from './SvgIcon';
 import '../../scss/FileRename.scss';
 
 function FileRename() {
-  const mql = window.matchMedia('(max-width: 480px)');
   const { curFile, inputRef } = useFile();
   const fileName = useMemo(() => curFile.name, [curFile]);
 
