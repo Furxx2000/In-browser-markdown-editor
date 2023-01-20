@@ -2,7 +2,7 @@ import { useCustomState } from '../../Hooks/useCustomState';
 import { useEffect, useMemo, useState } from 'react';
 import { useFile } from '../../Hooks/useFiles';
 import DOMPurify from 'dompurify';
-import ConvertMarkdownToPreview from '../../helpers/convertMarkdownToPreview';
+import ConvertMarkdownToPreview from '../../helpers/ConvertMarkdownToPreview';
 import '../../scss/Preview.scss';
 
 function Preview() {
