@@ -9,6 +9,10 @@
   & > svg {
     margin-right: 7.8px;
   }
+
+  &:active {
+    scale: 0.95;
+  }
 }
 
 .new-document-btn {
